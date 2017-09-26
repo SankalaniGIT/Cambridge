@@ -1,0 +1,50 @@
+.slideshow {
+  background: #000;
+}
+.slideshow, .slideshow .slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  z-index: -500;
+}
+.slideshow .slide {
+  background-position: center;
+  background-size: cover;
+  opacity: 0;
+}
+.slideshow .slide.previous {
+  z-index: 1;
+  opacity: 1;
+}
+.slideshow .slide.current {
+  z-index: 2;
+  -webkit-animation: fadein 5000ms linear both;
+          animation: fadein 5000ms linear both;
+}
+
+@-webkit-keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,17 @@
+  .panel{
+  box-shadow: 3px 3px 5px 6px #ccc !important;
+}
+
+
+.panel-default>.panel-heading{
+  color: white !important;
+}
+
+button .btn .btn-primary:active:hover{
+background-color: #1c1c1c !important;
+  border-color: black !important;
+}
+
+.panel-default>.panel-heading{
+  background-image: linear-gradient(to bottom,black 0,black 100%) !important;
+}

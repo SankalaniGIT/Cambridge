@@ -1,0 +1,39 @@
+.ui-toolbar {
+  background: black !important;
+}
+
+#viewCharges_length {
+  color: white;
+}
+
+#viewCharges_filter {
+  color: white;
+}
+
+#viewCharges_info {
+  color: white;
+}
+
+select {
+  color: black !important;
+}
+
+#viewCharges_wrapper {
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow: 3px 3px 5px 6px #ccc;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+  color: black;
+}
+
+.panel-default > .panel-heading {
+  color: white !important;
+}
+
+.container > h2 {
+  font-family: Georgia, serif;
+  font-size: 25px;
+  margin-top: 33px;
+}
+

@@ -1,0 +1,10 @@
+form {
+  -webkit-box-shadow: inset 0 0 10px #000000;
+          box-shadow: inset 0 0 10px #000000;
+}
+
+#stationaryTbl {
+  margin-right: -7px;
+  margin-left: 2px;
+}
+

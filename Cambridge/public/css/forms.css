@@ -1,0 +1,32 @@
+.panel {
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc !important;
+          box-shadow: 3px 3px 5px 6px #ccc !important;
+}
+
+.panel-default > .panel-heading {
+  color: white !important;
+}
+
+button .btn .btn-primary:active:hover {
+  background-color: #1c1c1c !important;
+  border-color: black !important;
+}
+
+.panel-default > .panel-heading {
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, black), to(black)) !important;
+  background-image: linear-gradient(to bottom, black 0, black 100%) !important;
+}
+
+.center-block {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-orient: horizontal !important;
+  -webkit-box-direction: normal !important;
+      -ms-flex-direction: row !important;
+          flex-direction: row !important;
+  -webkit-box-pack: center !important;
+      -ms-flex-pack: center !important;
+          justify-content: center !important;
+}
+

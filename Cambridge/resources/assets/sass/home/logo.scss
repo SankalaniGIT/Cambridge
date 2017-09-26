@@ -1,0 +1,54 @@
+.head1{
+    position: fixed; 
+    z-index: 50;
+    right: 160px; 
+    bottom: 108px; 
+    color: white;
+    text-shadow:2px 5px black;
+}
+
+.head2{
+    position: fixed;
+    z-index: 50; 
+    right: 160px; 
+    bottom: 71px;
+    color: white;
+    font-size: 20px;
+    text-shadow:2px 5px black;
+}
+.head3{
+    position: fixed; 
+    z-index: 50; 
+    right: 160px; 
+    bottom: 40px;
+    color: white;
+    font-size: 20px;
+    text-shadow:2px 5px black;
+}
+
+.logo{
+    position: fixed; 
+    z-index: 50; 
+    right: 20px; 
+    bottom: 10px;
+}
+
+#dropdown{
+    z-index: 50;
+    left: 896px;
+    top: -60px;
+}
+
+#userid{
+    color: #fff;
+    font-size: 23px;
+    text-shadow:2px 1px black; 
+}
+
+#userid:hover{
+    color: #000000;
+}
+
+#logout{
+    padding: 2px 56px !important;
+}

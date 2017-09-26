@@ -1,0 +1,23 @@
+/********************* change checkbox colors in Pay Students Fee Form *********************/
+
+input[type=checkbox] {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  opacity: 0;
+}
+
+/* Default State */
+.ck {
+  background: cadetblue;
+  width: 25px;
+  height: 25px;
+  line-height: 100px;
+  color: white;
+  text-align: center;
+}
+
+/* Toggled State */
+input[type=checkbox]:checked ~ .ck {
+  background: red;
+}
