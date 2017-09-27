@@ -1,3 +1,6 @@
 *
 !public/
 !.gitignore
+.env
+vendor/
+node_modules/
