@@ -10,7 +10,7 @@
                 <div class="panel-heading">Pay Student Fees</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST"
-                          action="{{route('postStudentRegistration')}}">
+                          action="{{route('postPayFee')}}">
                         {{ csrf_field() }}
 
                         <div class="row">
@@ -27,21 +27,26 @@
                                                         class="fa fa-search"></i></span>
                                                 {!! Form::text('search_text', null,array('placeholder' =>'Search No','name'=>'adNo','autofocus','class' => 'form-control','id'=>'adNo')) !!}
                                             </div>
+                                            @if ($errors->has('admission_no'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('admission_no') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="row">
-                                    <div class="form-group{{ $errors->has('First_name') ? ' has-error' : '' }}">
-                                        <label for="First_name" class="col-md-4 control-label">Student Name</label>
+                                    <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                        <label for="name" class="col-md-4 control-label">Student Name</label>
 
                                         <div class="col-md-8">
-                                            <input id="First_name" type="text" class="form-control" name="First_name"
-                                                   value="{{ old('First_name') }}" autofocus readonly>
+                                            <input id="name" type="text" class="form-control" name="name"
+                                                   value="{{ old('name') }}" autofocus readonly>
 
-                                            @if ($errors->has('First_name'))
+                                            @if ($errors->has('name'))
                                                 <span class="help-block">
-                                    <strong>{{ $errors->first('First_name') }}</strong>
+                                    <strong>{{ $errors->first('name') }}</strong>
                                                 </span>
                                             @endif
                                         </div>
@@ -71,7 +76,7 @@
                                             Amount</label>
 
                                         <div class="col-md-8">
-                                            <input id="OutStandingAmt" type="text" class="form-control"
+                                            <input id="OutStandingAmt" type="number" class="form-control"
                                                    name="OutStandingAmt"
                                                    value="{{ old('OutStandingAmt') }}" autofocus readonly>
 
@@ -84,6 +89,23 @@
                                     </div>
                                 </div>
                                 <br>
+                                <div class="row">
+                                    <div class="form-group{{ $errors->has('year') ? ' has-error' : '' }}">
+                                        <label for="year" class="col-md-4 control-label">Year</label>
+
+                                        <div class="col-md-8">
+                                            <input id="year" type="number" class="form-control"
+                                                   name="year"
+                                                   value="<?php echo date('Y');?>" autofocus>
+
+                                            @if ($errors->has('year'))
+                                                <span class="help-block">
+                                    <strong>{{ $errors->first('year') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
                             </div>{{--close first column--}}
 
                             <div class=" col-md-6 col-sm-12 col-xs-12">
@@ -112,17 +134,17 @@
                                                     </th>
                                                     <td>
                                                         <label for="T1-p1"></label>
-                                                        <input name="T1-p1" type="checkbox" id="T1-p1" value="T1-p1">
+                                                        <input name="T1-p1" type="checkbox" id="T1-p1" value="0" onclick="$(this).val(this.checked ? 1 : 0);" readonly>
                                                         <div class="ck"></div>
                                                     </td>
                                                     <td>
                                                         <label for="T1-p2"></label>
-                                                        <input name="T1-p2" type="checkbox" id="T1-p2" value="T1-p2">
+                                                        <input name="T1-p2" type="checkbox" id="T1-p2" value="0" onclick="$(this).val(this.checked ? 1 : 0);" readonly>
                                                         <div class="ck"></div>
                                                     </td>
                                                     <td>
                                                         <label for="T1-p3"></label>
-                                                        <input name="T1-p3" type="checkbox" id="T1-p3" value="T1-p3">
+                                                        <input name="T1-p3" type="checkbox" id="T1-p3" value="0" onclick="$(this).val(this.checked ? 1 : 0);" readonly>
                                                         <div class="ck"></div>
                                                     </td>
                                                 </tr>
@@ -132,17 +154,17 @@
                                                     </th>
                                                     <td>
                                                         <label for="T2-p1"></label>
-                                                        <input name="T2-p1" type="checkbox" id="T2-p1" value="T2-p1">
+                                                        <input name="T2-p1" type="checkbox" id="T2-p1" value="0" onclick="$(this).val(this.checked ? 1 : 0);" readonly>
                                                         <div class="ck"></div>
                                                     </td>
                                                     <td>
                                                         <label for="T2-p2"></label>
-                                                        <input name="T2-p2" type="checkbox" id="T2-p2" value="T2-p2">
+                                                        <input name="T2-p2" type="checkbox" id="T2-p2" value="0" onclick="$(this).val(this.checked ? 1 : 0);" readonly>
                                                         <div class="ck"></div>
                                                     </td>
                                                     <td>
                                                         <label for="T2-p3"></label>
-                                                        <input name="T2-p3" type="checkbox" id="T2-p3" value="T2-p3">
+                                                        <input name="T2-p3" type="checkbox" id="T2-p3" value="0" onclick="$(this).val(this.checked ? 1 : 0);" readonly>
                                                         <div class="ck"></div>
                                                     </td>
                                                 </tr>
@@ -152,17 +174,17 @@
                                                     </th>
                                                     <td>
                                                         <label for="T3-p1"></label>
-                                                        <input name="T3-p1" type="checkbox" id="T3-p1" value="T3-p1">
+                                                        <input name="T3-p1" type="checkbox" id="T3-p1" value="0" onclick="$(this).val(this.checked ? 1 : 0);" readonly>
                                                         <div class="ck"></div>
                                                     </td>
                                                     <td>
                                                         <label for="T3-p2"></label>
-                                                        <input name="T3-p2" type="checkbox" id="T3-p2" value="T3-p2">
+                                                        <input name="T3-p2" type="checkbox" id="T3-p2" value="0" onclick="$(this).val(this.checked ? 1 : 0);" readonly>
                                                         <div class="ck"></div>
                                                     </td>
                                                     <td>
                                                         <label for="T3-p3"></label>
-                                                        <input name="T3-p3" type="checkbox" id="T3-p3" value="T3-p3">
+                                                        <input name="T3-p3" type="checkbox" id="T3-p3" value="0" onclick="$(this).val(this.checked ? 1 : 0);" readonly>
                                                         <div class="ck"></div>
                                                     </td>
                                                 </tr>
@@ -184,7 +206,7 @@
 
                                         <div class="col-md-8">
                                             <select id="term" type="text" class="form-control" name="term"
-                                                    value="{{ old('term') }}" required autofocus>
+                                                    value="{{ old('term') }}"  autofocus>
                                                 <option value="">Term</option>
                                             </select>
 
@@ -202,8 +224,12 @@
 
                                         <div class="col-md-8">
                                             <select id="P_method" type="text" class="form-control" name="P_method"
-                                                    value="{{ old('P_method') }}" required autofocus>
-                                                <option value="">Payment Method</option>
+                                                    value="{{ old('P_method') }}"  autofocus>
+                                                <option class="payment" value="">Payment Method</option>
+                                                <option class="payment" value="1">1st Payment</option>
+                                                <option class="payment" value="2">2nd Payment</option>
+                                                <option class="payment" value="3">3rd Payment</option>
+                                                <option class="payment" value="4">Full Payment</option>
                                             </select>
                                         </div>
                                     </div>

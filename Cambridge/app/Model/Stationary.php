@@ -26,18 +26,18 @@ class Stationary extends Model
     function insertInventory($values)
     {
         try {
-            $sta = DB::table($this->table)
-                ->insert([
-                    'st_type' => $values->item,
-                    'price' => $values->Sprice,
-                    'quantity' => $values->qty,
-                    'purchase_price' => $values->Pprice
-                ]);
+        $sta = DB::table($this->table)
+            ->insert([
+                'st_type' => $values->item,
+                'price' => $values->Sprice,
+                'quantity' => $values->qty,
+                'purchase_price' => $values->Pprice
+            ]);
 
-            return true;
-        } catch (QueryException $ex) {
-            return E111;
-        }
+        return true;
+    } catch (QueryException $ex) {
+        return E111;
+    }
     }//insert new stationary details
 
     function getItemQty($id)

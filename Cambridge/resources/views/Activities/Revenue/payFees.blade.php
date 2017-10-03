@@ -28,7 +28,7 @@
     @include('MsgBoxes.msgScript')
     @include('home.scripts')
     @include('plugins.autoComplete')
-    {{--<script type="text/javascript" src="{{asset('/js/getAddno.js')}}"></script>--}}
+    <script type="text/javascript" src="{{asset('/js/payFee.js')}}"></script>
     <script>
         $(document).ready(function () {
 

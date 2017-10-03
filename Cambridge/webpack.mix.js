@@ -65,3 +65,7 @@ mix.scripts([
     'resources/assets/js/student/searchStuUpgrade.js',
 ], 'public/js/studentUpgrade.js');
 
+mix.scripts([
+    'resources/assets/js/Revenue/fillPayFeeDetails.js'
+], 'public/js/payFee.js');
+

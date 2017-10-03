@@ -16,10 +16,8 @@ use Illuminate\Database\QueryException;
 
 class RevenueController extends Controller
 {
-    public function viewPayFee()
-    {
-        return view('Activities.Revenue.payFees');//view all charges
-    }
+
+
 
     public function getAddNos(Request $request)
     {

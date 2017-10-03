@@ -79,11 +79,8 @@ Route::post('/postStuUpgrade','StudentController@postStuUpgrade')->name('postStu
 
 /**********************************  Revenue  **********************************/
 
-//Pay Fees
+//Pay Fees---->IN Pay fee section
 
-Route::get('/payFees','RevenueController@viewPayFee')->name('payFees');
-
-Route::get('getAddNo',array('as'=>'getAddNo','uses'=>'RevenueController@getAddNos'));//get admission nos
 
 //Admission & Refundable
 
@@ -183,3 +180,17 @@ Route::get('/fillInventory','InventoriesController@fillInventory')->name('fillIn
 
 Route::post('postAddInven','InventoriesController@postAddInven')->name('postAddInven');//post add details
 Route::post('postUpdateInven','InventoriesController@postUpdateInven')->name('postUpdateInven');//Update details
+
+
+/**********************************  Pay Fee (Revenue)  **********************************/
+
+
+//Pay Fees
+
+Route::get('/payFees','PayFeeController@viewPayFee')->name('payFees');//view Pay fee frm
+
+Route::get('getAddNo',array('as'=>'getAddNo','uses'=>'RevenueController@getAddNos'));//get admission nos
+
+Route::post('/postPayFee','PayFeeController@postPayFee')->name('postPayFee');//Post Pay Fee Details
+
+Route::get('/fillpayfee','PayFeeController@fillpayfee')->name('fillpayfee');//fill pay fee details

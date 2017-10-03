@@ -21,6 +21,10 @@ input[type=checkbox] {
 /* Toggled State */
 
 input[type=checkbox]:checked ~ .ck {
-  background: red;
+  background: green;
+}
+
+input[type="checkbox"][readonly] {
+  pointer-events: none;
 }
 

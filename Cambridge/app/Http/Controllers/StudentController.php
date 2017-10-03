@@ -354,6 +354,7 @@ ORDER BY student_class_tbl.admission_no)
             }
         }
         return redirect('viewUpgrade')->with('error_code', 11);
+
     }//update Student Upgrade Classes
 
 }

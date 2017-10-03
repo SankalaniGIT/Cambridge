@@ -11,7 +11,7 @@
             Student Upgrade
         </div>
         <div class="panel-body">
-            <div class="row center-block">
+            <div class="row">
                 <div class="col-md-5 form-group">
                     <label for="curriculum" class="col-md-4 control-label">Curriculum</label>
 
@@ -46,7 +46,6 @@
             <form class="form-horizontal" role="form" method="POST"
                   action="{{route('postStuUpgrade')}}">
                 {!! csrf_field() !!}
-
                 <div class="table-responsive">
                     <table id="updateCharges" role="grid" class="table table-bordered table-striped display dataTable"
                            cellspacing="0"
@@ -76,7 +75,7 @@
 
                 </div>
                 <hr>
-                <div class="row center-block">
+                <div class="row">
                     <div class="col-md-8 form-group{{ $errors->has('Uclass') ? ' has-error' : '' }}">
                         <label for="Uclass" class="col-md-5 control-label">Upgrade Class</label>
 

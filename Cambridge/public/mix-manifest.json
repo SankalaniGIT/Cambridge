@@ -32,5 +32,6 @@
     "/js/fillAdmissionRefund.js": "/js/fillAdmissionRefund.js",
     "/css/all.css": "/css/all.css",
     "/js/alljs.js": "/js/alljs.js",
-    "/js/studentUpgrade.js": "/js/studentUpgrade.js"
+    "/js/studentUpgrade.js": "/js/studentUpgrade.js",
+    "/js/payFee.js": "/js/payFee.js"
 }

@@ -3,6 +3,8 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 
 class Student_nc extends Model
 {
@@ -16,5 +18,16 @@ class Student_nc extends Model
 //    protected $fillable = ['admission_no', 'std_fname', 'std_lname', 'std_gender', 'std_dob', 'std_address', 'std_tel_no', 'std_f_fname'
 //        , 'std_f_lname', 'std_m_fname', 'std_m_lname', 'date_admission', 'std_m_moblie', 'std_f_mobile','updated_at','created_at'];
 
-
+    function getName($id)
+    {
+        try {
+            $name = DB::table($this->table)
+                ->select('std_fname', 'std_lname')
+                ->where('admission_no', '=', $id)
+                ->get();
+            return $name[0]->std_fname.' '.$name[0]->std_lname;
+        } catch (QueryException $ex) {
+            return E111;
+        }
+    }
 }
