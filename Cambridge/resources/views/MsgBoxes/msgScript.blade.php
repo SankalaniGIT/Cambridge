@@ -281,3 +281,16 @@
 
     </script>
 @endif
+
+
+
+{{--Pay Fees--}}
+@if(!empty(Session::get('error_code')) && Session::get('error_code')==26)
+    <script>
+
+        document.getElementById('mHeader').innerHTML = 'Pay Student Fees';
+        document.getElementById('mtxt').innerHTML = 'This Payment already inserted!';
+        click();
+
+    </script>
+@endif

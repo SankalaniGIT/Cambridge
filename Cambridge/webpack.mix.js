@@ -21,6 +21,7 @@ mix.sass('resources/assets/sass/student/viewStudentTbl.scss', 'public/css/');
 mix.sass('resources/assets/sass/student/upgrade.scss', 'public/css/');
 mix.sass('resources/assets/sass/revenue/ckBox.scss', 'public/css/');
 mix.sass('resources/assets/sass/revenue/admission&refund.scss', 'public/css/');
+mix.sass('resources/assets/sass/revenue/viewPayFee.scss', 'public/css/');
 mix.sass('resources/assets/sass/invoice/admissionInv.scss', 'public/css/');
 mix.sass('resources/assets/sass/invoice/stationaryInv.scss', 'public/css/');
 mix.sass('resources/assets/sass/revenue/stationary.scss', 'public/css/');
@@ -45,6 +46,7 @@ mix.js('resources/assets/js/courses/fillUpdateCos.js', 'public/js/');
 mix.js('resources/assets/js/courses/viewCosStudent.js', 'public/js/');
 mix.js('resources/assets/js/inventory/viewInventory.js', 'public/js/');
 mix.js('resources/assets/js/inventory/fillInventory.js', 'public/js/');
+mix.js('resources/assets/js/Revenue/viewPayFee.js', 'public/js/');
 
 
 mix.styles([
@@ -66,6 +68,8 @@ mix.scripts([
 ], 'public/js/studentUpgrade.js');
 
 mix.scripts([
-    'resources/assets/js/Revenue/fillPayFeeDetails.js'
+    'resources/assets/js/Revenue/fillPayFeeDetails.js',
+    'resources/assets/js/Revenue/fillPmethods.js',
+    'resources/assets/js/Revenue/fillfees.js'
 ], 'public/js/payFee.js');
 

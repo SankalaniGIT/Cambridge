@@ -42,13 +42,87 @@ class TermFee extends Model
         return $result;
     }//check full paid for terms
 
-    function getTermCountPaid($id, $cls, $yr,$term){
+    function getTermCountPaid($id, $cls, $yr, $term)
+    {
         $result = DB::table($this->table)
             ->select(DB::raw(' COUNT(amount) AS SCount ,SUM(amount) AS SPaidAmt'))
             ->where([['admmision_no', '=', $id], ['class_cat_id', '=', $cls], ['year', '=', $yr], ['term_name', '=', $term]])
             ->get();
-        return array($result[0]->SCount,$result[0]->SPaidAmt);
+        return array($result[0]->SCount, $result[0]->SPaidAmt);
     }//get payment count of term & total paid amount for term
 
+    function getTinv($tbl, $ext)
+    {
+        $result = DB::table($tbl)->select('T_inv_no')->orderBy('term_id', 'desc')->limit(1)->get();
+        $id = substr($result[0]->T_inv_no, 4);
+        return $ext . ($id + 1);
+    }//return next term fee invoice No
+
+    function getEinv($tbl, $ext)
+    {
+        $result = DB::table($tbl)->select('ex_inv_no')->orderBy('exam_id', 'desc')->limit(1)->get();
+        $id = substr($result[0]->ex_inv_no, 4);
+        return $ext . ($id + 1);
+    }//return next Exam fee invoice No
+
+    function getExtinv($tbl, $ext)
+    {
+        $result = DB::table($tbl)->select('ex_inv_no')->orderBy('ex_curr_id', 'desc')->limit(1)->get();
+        $id = substr($result[0]->ex_inv_no, 6);
+        return $ext . ($id + 1);
+    }//return next Extra curricular fee invoice No
+
+    function saveTermfee($term, $adNo, $cls, $amt, $date, $Pmethod, $yr)
+    {
+        $TF = new TermFee();
+        $TF->term_name = $term;
+        $TF->admmision_no = $adNo;
+        $TF->class_cat_id = $cls;
+        $TF->amount = $amt;
+        $TF->term_invoice_date = $date;
+        $TF->payment_method = $Pmethod;
+        $TF->year = $yr;
+        $TF->save();//save term fee details
+
+        $id = TermFee::select('term_fee_id')
+            ->where([['term_name', '=', $term], ['admmision_no', '=', $adNo], ['class_cat_id', '=', $cls], ['amount', '=', $amt], ['term_invoice_date', '=', $date], ['payment_method', '=', $Pmethod], ['year', '=', $yr]])
+            ->get();//return inserted term fee id
+        return $id[0]->term_fee_id;
+    }
+
+    function saveTerm($tbl, $termid, $inv)
+    {
+        DB::table($tbl)
+            ->insert([
+                'term_fee_id' => $termid,
+                'T_inv_no' => $inv
+            ]);
+    }//save term invoice no
+
+    function saveExam($tbl, $termid, $inv)
+    {
+        DB::table($tbl)
+            ->insert([
+                'term_fee_id' => $termid,
+                'ex_inv_no' => $inv
+            ]);
+    }//save exam invoice no
+
+    function saveExtCurry($tbl, $termid, $inv)
+    {
+        DB::table($tbl)
+            ->insert([
+                'term_fee_id' => $termid,
+                'ex_inv_no' => $inv
+            ]);
+    }//save extra curricular invoice no
+
+    function isAlreadyInserted($term, $adNo, $cls, $amt, $date, $Pmethod, $yr)
+    {
+        $id = DB::table($this->table)
+            ->where([['term_name', '=', $term], ['admmision_no', '=', $adNo], ['class_cat_id', '=', $cls], ['amount', '=', $amt], ['term_invoice_date', '=', $date], ['payment_method', '=', $Pmethod], ['year', '=', $yr]])
+            ->exists();
+        return $id;
+    }
 
 }

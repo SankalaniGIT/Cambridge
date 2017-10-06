@@ -24,7 +24,6 @@ class payFeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'admission_no' => 'required',
             'name' => 'required',
             'class' => 'required',
             'OutStandingAmt' => 'required',
@@ -35,7 +34,6 @@ class payFeeRequest extends FormRequest
     public function messages()
     {
         return [
-            'admission_no.required' => 'Admission Number is required.',
             'name.required' => 'Student Name is required.',
             'class.required' => 'Class is required.',
             'OutStandingAmt.required' => 'Outstanding Amount For this year is required.',

@@ -60,24 +60,24 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 42);
+/******/ 	return __webpack_require__(__webpack_require__.s = 46);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 42:
+/***/ 46:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(43);
+module.exports = __webpack_require__(47);
 
 
 /***/ }),
 
-/***/ 43:
+/***/ 47:
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
-    $('#viewInventory').DataTable({
+    $('#viewPayFee').DataTable({
 
         "scrollY": "300px",
         "scrollCollapse": true,

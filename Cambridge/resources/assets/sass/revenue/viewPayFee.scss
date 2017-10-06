@@ -1,0 +1,43 @@
+.dataTables_wrapper {
+  background: black !important;
+}
+
+#viewPayFee_wrapper {
+  -moz-box-shadow: 3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow: 3px 3px 5px 6px #ccc;
+}
+
+.container>h2{
+  font-family: Georgia, serif;
+  font-size: 25px;
+  margin-top: 33px;
+}
+
+a.dt-button.buttons-print{
+  background-image: linear-gradient(to bottom, #1ca7b7 0,#265a88 100%) !important;
+  color: white;
+  border-radius: 4px;
+  //border: 1px solid transparent;
+  padding: 6px 12px;
+}
+#viewPayFee_filter{
+  margin-right: 20px;
+}
+#viewPayFee_info{
+  margin-left: 20px;
+}
+thead,tfoot,#viewPayFee_info,#viewPayFee_filter>label{
+  color: white;
+}
+#viewPayFee_filter>label> input{
+  color: black;
+}
+
+#viewPayFee_wrapper{
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+div.dt-buttons{
+  left: 20px;
+}

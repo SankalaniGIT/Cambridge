@@ -47,7 +47,7 @@
                 </tr>
                 <tr align="right">
                     <td class="cleardata">Term:</td>
-                    <td></td>
+                    <td>{{$term}}</td>
                 </tr>
                 </tbody>
             </table>

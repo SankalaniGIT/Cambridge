@@ -206,7 +206,7 @@
 
                                         <div class="col-md-8">
                                             <select id="term" type="text" class="form-control" name="term"
-                                                    value="{{ old('term') }}"  autofocus>
+                                                    value="{{ old('term') }}"  autofocus required>
                                                 <option value="">Term</option>
                                             </select>
 
@@ -224,12 +224,8 @@
 
                                         <div class="col-md-8">
                                             <select id="P_method" type="text" class="form-control" name="P_method"
-                                                    value="{{ old('P_method') }}"  autofocus>
-                                                <option class="payment" value="">Payment Method</option>
-                                                <option class="payment" value="1">1st Payment</option>
-                                                <option class="payment" value="2">2nd Payment</option>
-                                                <option class="payment" value="3">3rd Payment</option>
-                                                <option class="payment" value="4">Full Payment</option>
+                                                    value="{{ old('P_method') }}"  autofocus required>
+                                                <option value="">Payment Method</option>
                                             </select>
                                         </div>
                                     </div>

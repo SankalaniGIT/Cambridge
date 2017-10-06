@@ -164,8 +164,8 @@ Route::post('/postBillCourse','CourseController@postBillCourse')->name('postBill
 
 Route::get('/viewCourses','CourseController@viewCourses')->name('viewCourses');//view Courses
 
-Route::get('/CosInv/{course}/{id}/{invNo}/{date}/{name}/{paid}/{month}',function ($course,$id,$invNo,$date,$name,$paid,$month){
-    return view('Invoice.CosInv', ['class' => $course, 'AdNo' => $id, 'invNo' => $invNo, 'date' => $date, 'name' => $name, 'fee' => $paid, 'month' => $month]);
+Route::get('/CosInv/{course}/{id}/{invNo}/{date}/{name}/{paid}/{month}/{term}',function ($course,$id,$invNo,$date,$name,$paid,$month,$term){
+    return view('Invoice.CosInv', ['class' => $course, 'AdNo' => $id, 'invNo' => $invNo, 'date' => $date, 'name' => $name, 'fee' => $paid, 'month' => $month,'term'=>$term]);
 })->name('CosInv');//print Course Student details
 
 
@@ -194,3 +194,7 @@ Route::get('getAddNo',array('as'=>'getAddNo','uses'=>'RevenueController@getAddNo
 Route::post('/postPayFee','PayFeeController@postPayFee')->name('postPayFee');//Post Pay Fee Details
 
 Route::get('/fillpayfee','PayFeeController@fillpayfee')->name('fillpayfee');//fill pay fee details
+
+Route::get('/fillPmethods','PayFeeController@fillPmethods')->name('fillPmethods');//fill payment methods
+
+Route::get('/fillfees','PayFeeController@fillfees')->name('fillfees');//fill term fees

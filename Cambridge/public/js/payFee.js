@@ -47,3 +47,46 @@ $(document).ready(function () {
 
     });
 });
+$(document).ready(function () {
+    $('#term').change(function () {
+        $('#P_method').find('option:not(:first)').remove().end();
+
+        $.ajax({
+            type: 'get',
+            url: 'fillPmethods',
+            data: {id: $('#adNo').val(), yr: $('#year').val(), trm: $('#term').val()},
+            success: function (data) {
+                if(data==1) {
+                    $('#P_method').append($("<option class='p1'></option>").attr("value", '1').text('1st Payment'));
+                    $('#P_method').append($("<option class='p4'></option>").attr("value", '4').text('Full Payment'));
+                }else if (data==2){
+                    $('#P_method').append($("<option class='p2'></option>").attr("value", '2').text('2nd Payment'));
+                }else if (data==3){
+                    $('#P_method').append($("<option class='p3'></option>").attr("value", '3').text('3rd Payment'));
+                }else if (data==4){
+                    $('#P_method').append($("<option class='p4'></option>").attr("value", '4').text('Full Payment'));
+                }
+            }
+        });
+    });
+});
+$(document).ready(function () {
+    $('#P_method').change(function () {
+
+
+        $.ajax({
+            type: 'get',
+            url: 'fillfees',
+            data: {id: $('#adNo').val(), pm: $('#P_method').val()},
+            success: function (data) {
+                //$term_fee,$exam_fee,$extra_cur_fee,$Tinv,$Einv,$Extinv
+                $('#Tfee').val(data[0]);
+                $('#Efee').val(data[1]);
+                $('#ExCfee').val(data[2]);
+                $('#TfeeInv').val(data[3]);
+                $('#EfeeInv').val(data[4]);
+                $('#ExCfeeInv').val(data[5]);
+            }
+        });
+    });
+});

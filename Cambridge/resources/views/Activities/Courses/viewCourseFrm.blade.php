@@ -45,7 +45,7 @@
                 <td>{{$cos->course_state}}</td>
                 <td>{{$cos->date}}</td>
                 <td>{{$cos->st_c_fee_invNo}}</td>
-                <td><a href=" {!! route('CosInv',['course'=>$cos->course_name,'id'=>$cos->student_id,'invNo'=>$cos->st_c_fee_invNo,'date'=>$cos->date,'name'=>$cos->name,'paid'=>$cos->fee_amount,'month'=>$cos->month]) !!}">Print</a></td>
+                <td><a href=" {!! route('CosInv',['course'=>$cos->course_name,'id'=>$cos->student_id,'invNo'=>$cos->st_c_fee_invNo,'date'=>$cos->date,'name'=>$cos->name,'paid'=>$cos->fee_amount,'month'=>$cos->month,'term'=>'--']) !!}">Print</a></td>
             </tr>
         @endforeach
 

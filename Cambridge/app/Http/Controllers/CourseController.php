@@ -363,7 +363,7 @@ class CourseController extends Controller
 
     public function viewCourses()
     {
-        $table=DB::select(DB::raw('SELECT SC.student_id,F.fee_amount,F.month,C.course_name,SC.course_state,F.st_c_fee_invNo,F.date,
+        $table = DB::select(DB::raw('SELECT SC.student_id,F.fee_amount,F.month,C.course_name,SC.course_state,F.st_c_fee_invNo,F.date,
 (
 SELECT CONCAT( std_fname," ",std_lname)
 FROM course_school_join_tbl
@@ -391,6 +391,8 @@ INNER JOIN course_details AS C
 ON C.course_id=SC.course_id
 
 '));
-        return view('Activities.Courses.viewCourse',array('courses'=>$table));
+
+        return view('Activities.Courses.viewCourse', array('courses' => $table));
+
     }
 }

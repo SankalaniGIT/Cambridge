@@ -28,4 +28,12 @@ class Charge extends Model
         return $isExist;
 
     }//check is exist in pre primary classes return true and false
+
+    function getFees($cls){
+        $cls = DB::table($this->table)
+            ->select('term_fee','exam_fee','extra_cur_fee')
+            ->where('main_class_id', '=', $cls)
+            ->get();
+        return array($cls[0]->term_fee,$cls[0]->exam_fee,$cls[0]->extra_cur_fee);
+    }
 }
