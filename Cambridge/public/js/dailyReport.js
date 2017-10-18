@@ -60,95 +60,65 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 25);
+/******/ 	return __webpack_require__(__webpack_require__.s = 49);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 25:
+/***/ 49:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(26);
+module.exports = __webpack_require__(50);
 
 
 /***/ }),
 
-/***/ 26:
+/***/ 50:
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
-
-    $('#curriculum').change(function () {
-
-        var id = $('#curriculum').find(":selected").val();
-
-        //*********************      Get grade options to select box in Insert Student Details        */
-
-
+    $('#subBtn').click(function () {
         $.ajax({
             type: 'get',
-            url: 'studentGrade',
-            data: { id: id },
+            url: 'fillDailyReport',
+            data: { date: $('#date').val() },
             success: function success(data) {
-                $('#grade').find('option').remove().end();
-                for (var i = 0; i < data.length; i++) {
-                    for (var grade in data[i]) {
-                        $('#grade').append($("<option></option>").attr("value", data[i][grade]).text(data[i][grade]));
-                    }
-                }
-            }
-        });
+                //($cashInHand , $bcTotTF , $ncTotTF , $bcTotEF , $ncTotEF , $bcTotExtF , $ncTotExtF , $stationary , $refund
+                // , $admission , $courseFee ,$otherIncome, $discountExp,$expense,$totalIcome,$totalExpenses,$totCashInHand);
 
-        //  /*********************      Get class options to select box in Insert Student Details       */
+                $('#CIH').text(data[0]);
+                $('#bcTF').text(data[1]);
+                $('#ncTF').text(data[2]);
+                $('#bcEF').text(data[3]);
+                $('#ncEF').text(data[4]);
+                $('#bcExtF').text(data[5]);
+                $('#ncExtF').text(data[6]);
+                $('#sta').text(data[7]);
+                $('#ref').text(data[8]);
+                $('#admi').text(data[9]);
+                $('#cos').text(data[10]);
 
+                $.map(data[11], function (val, index) {
+                    var x = '<tr>' + '<td>' + val.type + '</td>' + '<td></td>' + '<td>' + val.totOincome + '</td>' + '</tr>';
 
-        $.ajax({
-            type: 'get',
-            url: 'studentClass',
-            data: { id: id },
-            success: function success(data) {
-                $('#class').find('option').remove().end();
-                for (var i = 0; i < data.length; i++) {
-                    for (var classes in data[i]) {
-                        $('#class').append($("<option></option>").attr("value", data[i][classes]).text(data[i][classes]));
-                    }
-                }
-            }
-        });
+                    $('#addOincome').closest('tr').after(x);
+                });
 
-        //  /*********************      Get Admission No according to curriculum in Insert Student Details       */
+                $('#dis').text(data[12]);
 
+                $.map(data[13], function (val, index) {
+                    var x = '<tr>' + '<td>' + val.expense_type + '</td>' + '<td>' + val.totExp + '</td>' + '<td></td>' + '</tr>';
 
-        $.ajax({
-            type: 'get',
-            url: 'studentAddNo',
-            data: { id: id },
-            success: function success(data) {
-                for (var i = 0; i < data.length; i++) {
-                    for (var classes in data[i]) {
-                        var value = data[i][classes];
-                        var no = parseInt(value.substr(2));
-                        var lno = no + 1;
+                    $('#addExp').closest('tr').after(x);
+                });
 
-                        if (value.match("^nc")) {
-                            adNo = 'nc' + lno;
-                        } else if (value.match("^bc")) {
-                            adNo = 'bc' + lno;
-                        }
-                        $('#adNoid').val(adNo);
-                    }
-                }
+                $('#totIncm').text(data[14]);
+                $('#totExp').text(data[15]);
+                $('#totCIH').text(data[16]);
+                $('#hd').text(' Day Sheet as at ' + $('#date').val());
             }
         });
     });
-
-    $('#curriculum').change();
-
-    $('#state').change(function () {
-        cb = $(this);
-        cb.val(cb.prop('checked'));
-    }); //change state checkbox value
-
 });
 
 /***/ })

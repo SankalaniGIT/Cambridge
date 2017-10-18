@@ -5,7 +5,7 @@
 </button>
 
 <div class="container">
-    <h2>Course Student Details</h2>
+    <h2>Inventory Details</h2>
     <table id="viewInventory" class="display" cellspacing="0" width="100%">
         <thead>
         <tr>
@@ -14,6 +14,7 @@
             <th>Purchase Price</th>
             <th>Selling Price</th>
             <th>Quantity</th>
+            <th>Total Remaining Purchase Price</th>
         </tr>
         </thead>
         <tfoot>
@@ -23,6 +24,7 @@
             <th>Purchase Price</th>
             <th>Selling Price</th>
             <th>Quantity</th>
+            <th>Total Remaining Purchase Price</th>
         </tr>
         </tfoot>
         <tbody>
@@ -34,6 +36,7 @@
                 <td>{{$inven->purchase_price}}</td>
                 <td>{{$inven->price}}</td>
                 <td>{{$inven->quantity}}</td>
+                <td>{{$inven->quantity*$inven->purchase_price}}</td>
             </tr>
         @endforeach
 

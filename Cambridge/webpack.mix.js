@@ -1,4 +1,4 @@
-let mix = require('laravel-mix');
+const mix = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -30,6 +30,7 @@ mix.sass('resources/assets/sass/invoice/expensesInv.scss', 'public/css/');
 mix.sass('resources/assets/sass/expenses/viewExpenses.scss', 'public/css/');
 mix.sass('resources/assets/sass/course/viewCourse.scss', 'public/css/');
 mix.sass('resources/assets/sass/inventory/viewInventory.scss', 'public/css/');
+mix.sass('resources/assets/sass/Reports/viewFeeHistory.scss', 'public/css/');
 
 
 mix.js('resources/assets/js/charges/charges.js', 'public/js/');
@@ -47,6 +48,12 @@ mix.js('resources/assets/js/courses/viewCosStudent.js', 'public/js/');
 mix.js('resources/assets/js/inventory/viewInventory.js', 'public/js/');
 mix.js('resources/assets/js/inventory/fillInventory.js', 'public/js/');
 mix.js('resources/assets/js/Revenue/viewPayFee.js', 'public/js/');
+mix.js('resources/assets/js/Reports/dailyReport.js', 'public/js/');
+mix.js('resources/assets/js/Reports/filldailyTReport.js', 'public/js/');
+mix.js('resources/assets/js/Reports/viewFeeHistory.js', 'public/js/');
+mix.js('resources/assets/js/Reports/fillPayArrearsRpt.js', 'public/js/');
+mix.js('resources/assets/js/Reports/fillMonthlyRpt.js', 'public/js/');
+
 
 
 mix.styles([
@@ -72,4 +79,5 @@ mix.scripts([
     'resources/assets/js/Revenue/fillPmethods.js',
     'resources/assets/js/Revenue/fillfees.js'
 ], 'public/js/payFee.js');
+
 

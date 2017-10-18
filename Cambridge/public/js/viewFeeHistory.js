@@ -60,95 +60,52 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 25);
+/******/ 	return __webpack_require__(__webpack_require__.s = 53);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 25:
+/***/ 53:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(26);
+module.exports = __webpack_require__(54);
 
 
 /***/ }),
 
-/***/ 26:
+/***/ 54:
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
+    var t = $('#viewFeeHistory').DataTable({
 
-    $('#curriculum').change(function () {
+        "scrollY": "300px",
+        "scrollCollapse": true,
+        "paging": false,
+        "scrollx": false,
 
-        var id = $('#curriculum').find(":selected").val();
+        dom: 'Bfrtip',
+        buttons: ['print']
+    }); //add print button
 
-        //*********************      Get grade options to select box in Insert Student Details        */
 
-
+    $('#subBtn').on('click', function () {
+        t.rows().remove().draw(); //remove data rows
         $.ajax({
             type: 'get',
-            url: 'studentGrade',
-            data: { id: id },
+            url: 'fillTFHistory',
+            data: { adNo: $('#AdNo').val() },
             success: function success(data) {
-                $('#grade').find('option').remove().end();
-                for (var i = 0; i < data.length; i++) {
-                    for (var grade in data[i]) {
-                        $('#grade').append($("<option></option>").attr("value", data[i][grade]).text(data[i][grade]));
-                    }
-                }
-            }
-        });
 
-        //  /*********************      Get class options to select box in Insert Student Details       */
-
-
-        $.ajax({
-            type: 'get',
-            url: 'studentClass',
-            data: { id: id },
-            success: function success(data) {
-                $('#class').find('option').remove().end();
-                for (var i = 0; i < data.length; i++) {
-                    for (var classes in data[i]) {
-                        $('#class').append($("<option></option>").attr("value", data[i][classes]).text(data[i][classes]));
-                    }
-                }
-            }
-        });
-
-        //  /*********************      Get Admission No according to curriculum in Insert Student Details       */
-
-
-        $.ajax({
-            type: 'get',
-            url: 'studentAddNo',
-            data: { id: id },
-            success: function success(data) {
-                for (var i = 0; i < data.length; i++) {
-                    for (var classes in data[i]) {
-                        var value = data[i][classes];
-                        var no = parseInt(value.substr(2));
-                        var lno = no + 1;
-
-                        if (value.match("^nc")) {
-                            adNo = 'nc' + lno;
-                        } else if (value.match("^bc")) {
-                            adNo = 'bc' + lno;
-                        }
-                        $('#adNoid').val(adNo);
-                    }
-                }
-            }
+                $.each(data, function (index, value) {
+                    t.row.add([value.admmision_no, value.stname, value.class_category, value.term_invoice_date, value.term_cat, value.payment_method, value.amount, value.yrs]).draw(false);
+                });
+            } //add rows
         });
     });
 
-    $('#curriculum').change();
-
-    $('#state').change(function () {
-        cb = $(this);
-        cb.val(cb.prop('checked'));
-    }); //change state checkbox value
-
+    // Automatically add a first row of data
+    $('#subBtn').click();
 });
 
 /***/ })

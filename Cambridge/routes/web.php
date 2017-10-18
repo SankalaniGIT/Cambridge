@@ -198,3 +198,40 @@ Route::get('/fillpayfee','PayFeeController@fillpayfee')->name('fillpayfee');//fi
 Route::get('/fillPmethods','PayFeeController@fillPmethods')->name('fillPmethods');//fill payment methods
 
 Route::get('/fillfees','PayFeeController@fillfees')->name('fillfees');//fill term fees
+
+
+/**********************************  Reports  **********************************/
+
+//Daily Report
+
+Route::get('viewDailyReport','ReportController@viewDailyReport')->name('viewDailyReport');//view Daily Report
+
+Route::get('fillDailyReport','ReportController@fillDailyReport')->name('fillDailyReport');//fill Daily Report
+
+//Daily Transaction Report
+
+Route::get('viewDailyTraReport','ReportController@viewDailyTraReport')->name('viewDailyTraReport');//view Daily Transaction Report
+
+Route::get('fillDailyTReport','ReportController@fillDailyTReport')->name('fillDailyTReport');//fill daily Transaction Report
+
+//Fees History Report
+
+Route::get('viewFeeHistory','ReportController@viewFeeHistory')->name('viewFeeHistory');//view fee history
+
+Route::get('fillTFHistory','ReportController@fillTFHistory')->name('fillTFHistory');//fill fee history
+
+//Print Term Fee Report
+
+Route::get('printTermFee','ReportController@printTermFee')->name('printTermFee');//view term fee report
+
+//Payment Arrears List Report
+
+Route::get('viewArrears','ReportController@viewArrears')->name('viewArrears');//view payment arrears report
+
+Route::get('fillPayArrearsRpt','ReportController@fillPayArrearsRpt')->name('fillPayArrearsRpt');//fill payment arrears report
+
+//Monthly Report
+
+Route::get('viewMonthlyRpt','ReportController@viewMonthlyRpt')->name('viewMonthlyRpt');//view Monthly Report
+
+Route::get('getMonthlyRpt','ReportController@getMonthlyRpt')->name('getMonthlyRpt');//fill Monthly Report

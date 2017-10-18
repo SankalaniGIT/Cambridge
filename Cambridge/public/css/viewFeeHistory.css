@@ -1,0 +1,51 @@
+.dataTables_wrapper {
+  background: black !important;
+}
+
+#viewFeeHistory_wrapper {
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow: 3px 3px 5px 6px #ccc;
+}
+
+.container > h2 {
+  font-family: Georgia, serif;
+  font-size: 25px;
+  margin-top: 33px;
+}
+
+a.dt-button.buttons-print {
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #1ca7b7), to(#265a88)) !important;
+  background-image: linear-gradient(to bottom, #1ca7b7 0, #265a88 100%) !important;
+  color: white;
+  border-radius: 4px;
+  padding: 6px 12px;
+}
+
+#viewFeeHistory_filter {
+  margin-right: 20px;
+}
+
+thead,
+tfoot,
+#viewFeeHistory_info,
+#viewFeeHistory_filter > label {
+  color: white;
+}
+
+#viewFeeHistory_info {
+  margin-left: 20px;
+}
+
+#viewFeeHistory_filter > label > input {
+  color: black;
+}
+
+#viewFeeHistory_wrapper {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+div.dt-buttons {
+  left: 20px;
+}
+

@@ -60,95 +60,50 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 25);
+/******/ 	return __webpack_require__(__webpack_require__.s = 55);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 25:
+/***/ 55:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(26);
+module.exports = __webpack_require__(56);
 
 
 /***/ }),
 
-/***/ 26:
+/***/ 56:
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
-
-    $('#curriculum').change(function () {
-
-        var id = $('#curriculum').find(":selected").val();
-
-        //*********************      Get grade options to select box in Insert Student Details        */
-
-
+    $('#subBtn').click(function () {
+        $('#tblbody').find("tr:gt(0)").remove();
         $.ajax({
             type: 'get',
-            url: 'studentGrade',
-            data: { id: id },
+            url: 'fillPayArrearsRpt',
+            data: { year: $('#year').val() },
             success: function success(data) {
-                $('#grade').find('option').remove().end();
-                for (var i = 0; i < data.length; i++) {
-                    for (var grade in data[i]) {
-                        $('#grade').append($("<option></option>").attr("value", data[i][grade]).text(data[i][grade]));
-                    }
-                }
-            }
-        });
+                var cls = 'c';
+                $.each(data, function (index, value) {
+                    if (value.class_category != cls) {
+                        cls = value.class_category;
+                        var x = '<tr>' + '<td style="font-weight: 600" colspan="4">' + value.class_category + '</td>' + '</tr>';
 
-        //  /*********************      Get class options to select box in Insert Student Details       */
+                        $('#tblbody tr:last').after(x);
+                    } //add class category raw
 
+                    var y = '<tr>' + '<td>' + value.admmision_no + '</td>' + '<td>' + value.NAME + '</td>' + '<td>' + value.class_category + '</td>' + '<td>' + value.amount + '</td>' + '<td>' + value.totYrfee + '</td>' + '<td>' + (value.totYrfee - value.amount) + '</td>' + '<td>' + value.yrs + '</td>' + '</tr>';
 
-        $.ajax({
-            type: 'get',
-            url: 'studentClass',
-            data: { id: id },
-            success: function success(data) {
-                $('#class').find('option').remove().end();
-                for (var i = 0; i < data.length; i++) {
-                    for (var classes in data[i]) {
-                        $('#class').append($("<option></option>").attr("value", data[i][classes]).text(data[i][classes]));
-                    }
-                }
-            }
-        });
+                    $('#tblbody tr:last').after(y); //add other raws
+                });
 
-        //  /*********************      Get Admission No according to curriculum in Insert Student Details       */
-
-
-        $.ajax({
-            type: 'get',
-            url: 'studentAddNo',
-            data: { id: id },
-            success: function success(data) {
-                for (var i = 0; i < data.length; i++) {
-                    for (var classes in data[i]) {
-                        var value = data[i][classes];
-                        var no = parseInt(value.substr(2));
-                        var lno = no + 1;
-
-                        if (value.match("^nc")) {
-                            adNo = 'nc' + lno;
-                        } else if (value.match("^bc")) {
-                            adNo = 'bc' + lno;
-                        }
-                        $('#adNoid').val(adNo);
-                    }
-                }
+                $('#hd').text(' Student Payment Arrears for ' + $('#year').val());
+                $('#printDiv').removeClass('hidden');
+                $('#btn').removeClass('hidden');
             }
         });
     });
-
-    $('#curriculum').change();
-
-    $('#state').change(function () {
-        cb = $(this);
-        cb.val(cb.prop('checked'));
-    }); //change state checkbox value
-
 });
 
 /***/ })

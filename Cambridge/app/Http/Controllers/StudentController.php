@@ -67,12 +67,16 @@ class StudentController extends Controller
             $state = 'false';
         }
 
-        $classCatId = DB::table('class_category_tbl')->select('class_cat_id', 'main_class_id')->where('class_category', '=', $request->input('class'))->get();
+        $classCatId = DB::table('class_category_tbl')
+            ->select('class_cat_id', 'main_class_id')
+            ->where('class_category', '=', $request->input('class'))
+            ->get();
 
         foreach ($classCatId as $cat) {
             $cat_id = $cat->class_cat_id;
             $class_id = $cat->main_class_id;
         }//get Class Category and class id
+
 
         if (substr($class_id, 0, 2) == 'nc') {
             try {

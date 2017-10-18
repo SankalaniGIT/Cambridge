@@ -5,7 +5,7 @@
 </button>
 
 <div class="container">
-    <h2>Term Payment Details</h2>
+    <h2>Term Payment List</h2>
     <table id="viewPayFee" class="display" cellspacing="0" width="100%">
         <thead>
         <tr>
@@ -15,6 +15,7 @@
             <th>Class</th>
             <th>Fees Type</th>
             <th>Term</th>
+            <th>Month</th>
             <th>Amount</th>
             <th>Date</th>
             <th></th>
@@ -28,6 +29,7 @@
             <th>Class</th>
             <th>Fees Type</th>
             <th>Term</th>
+            <th>Month</th>
             <th>Amount</th>
             <th>Date</th>
             <th></th>
@@ -38,17 +40,18 @@
         @foreach($termFees as $TF)
 
             <tr>
-                <td>{{$TF['invNo']}}</td>
-                <td>{{$TF['adNo']}}</td>
-                <td>{{$TF['name']}}</td>
-                <td>{{$TF['cls']}}</td>
-                <td>{{$TF['Ftype']}}</td>
-                <td>{{$TF['month']}}</td>
-                <td>{{$TF['amt']}}</td>
-                <td>{{$TF['date']}}</td>
+                <td>{{$TF->invNo}}</td>
+                <td>{{$TF->adNo}}</td>
+                <td>{{$TF->name}}</td>
+                <td>{{$TF->cls}}</td>
+                <td>{{$TF->Ftype}}</td>
+                <td>{{$TF->term}}</td>
+                <td>{{$TF->month}}</td>
+                <td>{{$TF->amt}}</td>
+                <td>{{$TF->date}}</td>
                 <td>
-                    <a href=" {!! route('CosInv',['course'=>$TF['Ftype'],'id'=>$TF['adNo'],'invNo'=>$TF['invNo'],
-                    'date'=>$TF['date'],'name'=>$TF['name'],'paid'=>$TF['amt'],'month'=>$TF['month'],'term'=>$TF['term']]) !!}">Print</a>
+                    <a href=" {!! route('CosInv',['course'=>$TF->Ftype,'id'=>$TF->adNo,'invNo'=>$TF->invNo,
+                    'date'=>$TF->date,'name'=>$TF->name,'paid'=>$TF->amt,'month'=>$TF->month,'term'=>$TF->term]) !!}">Print</a>
                 </td>
             </tr>
         @endforeach

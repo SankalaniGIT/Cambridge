@@ -83,12 +83,12 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
             <li class="hidden"><a href="#"></a></li>
-            <li><a href="#">Daily Report</a></li>
-            <li><a href="#">Daily Transaction Report</a></li>
-            <li><a href="#">Fees Arrears Report</a></li>
-            <li><a href="#">Fees Report</a></li>
-            <li><a href="#">Print Term Fee</a></li>
-            <li><a href="#">Monthly Report</a></li>
+            <li><a href="{{route('viewDailyReport')}}">Daily Report</a></li>
+            <li><a href="{{route('viewDailyTraReport')}}">Daily Transaction Report</a></li>
+            <li><a href="{{route('viewFeeHistory')}}">Fees History Report</a></li>
+            <li><a href="{{route('printTermFee')}}">Print Term Fee</a></li>
+            <li><a href="{{route('viewArrears')}}">Payment Arrears List</a></li>
+            <li><a href="{{route('viewMonthlyRpt')}}">Monthly Report</a></li>
         </ul>
     </li>
     <li class="lvl">

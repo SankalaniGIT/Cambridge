@@ -18,7 +18,6 @@ class RevenueController extends Controller
 {
 
 
-
     public function getAddNos(Request $request)
     {
         $query = $request->get('term', '');
@@ -59,7 +58,6 @@ class RevenueController extends Controller
         $name = '';
         $class = '';
         $ammount = 0;
-        $discount = 0;
         $paid = 0;
 
         if (substr($request['id'], 0, 2) == 'nc') {
@@ -110,23 +108,25 @@ class RevenueController extends Controller
 
 
         if ($request['category'] == 'Admission Fee') {
-            $searchData = DB::table('admission_tbl')->select('ad_paid_amount', 'discount')->where('ad_payment_type', '=', 'Admission Fee')->where('admission_no', '=', $request['id'])->get();
+            $searchData = DB::table('admission_tbl')->select('ad_paid_amount')->where('ad_payment_type', '=', 'Admission Fee')->where('admission_no', '=', $request['id'])->get();
             $ammount = $adm_fee;
 
             $count = Admission::where('admission_no', '=', $request['id'])->where('ad_payment_type', '=', 'Admission Fee')->count();
 
+            $dis = DB::table('admission_tbl')->select(DB::raw('SUM(discount) AS discount'))->where('ad_payment_type', '=', 'Admission Fee')->where('admission_no', '=', $request['id'])->get();
 
+            $discount=$dis[0]->discount;
         } elseif ($request['category'] == 'Refundable Deposit') {
-            $searchData = DB::table('admission_tbl')->select('ad_paid_amount', 'discount')->where('ad_payment_type', '=', 'Refundable Deposit')->where('admission_no', '=', $request['id'])->get();
+            $searchData = DB::table('admission_tbl')->select('ad_paid_amount')->where('ad_payment_type', '=', 'Refundable Deposit')->where('admission_no', '=', $request['id'])->get();
             $ammount = $ref_deposit;
 
             $count = Admission::where('admission_no', '=', $request['id'])->where('ad_payment_type', '=', 'Refundable Deposit')->count();
 
+            $discount=0;
         }
-        foreach ($searchData as $ad) {
-            $paid = $ad->ad_paid_amount;
-            $discount = $ad->discount;
-        }
+
+            $paid = $searchData[0]->ad_paid_amount;
+
 
         return [$name, $class, $ammount, $discount, $paid, $count];
 
@@ -157,7 +157,7 @@ class RevenueController extends Controller
                     if ($val == 4) {
                         //new full payment
                         $paid = $request->input('amount');
-                        $this->saveAdd($addNo, $paid, $ptype, $pinv, $disc);
+                        $this->saveAdd($addNo, $paid, $ptype, $pinv, $disc, 2);
                         $this->saveCashInHand($date, $disc, $paid);
                         return view('Invoice.admissionInv', ['form' => 'ADMISSION FEE', 'part' => '', 'Curriculum' => $Curriculum, 'invNo' => $pinv, 'date' => $date,
                             'AdNo' => $addNo, 'name' => $name, 'class' => $class, 'amount' => $amount, 'paid' => $paid, 'totPaid' => $paid, 'bottom' => 'ADMISSION FEE']);
@@ -167,7 +167,7 @@ class RevenueController extends Controller
                         if ($val == 4) {
                             //new 1st part payment
                             $paid = $request->input('1stPart');
-                            $this->saveAdd($addNo, $paid, $ptype, $pinv, $disc);
+                            $this->saveAdd($addNo, $paid, $ptype, $pinv, $disc, 1);
                             $this->saveCashInHand($date, $disc, $paid);
                             return view('Invoice.admissionInv', ['form' => 'ADMISSION FEE', 'part' => '1st Installment', 'Curriculum' => $Curriculum, 'invNo' => $pinv, 'date' => $date,
                                 'AdNo' => $addNo, 'name' => $name, 'class' => $class, 'amount' => $amount, 'paid' => $paid, 'totPaid' => $paid, 'bottom' => 'ADMISSION FEE']);
@@ -182,14 +182,14 @@ class RevenueController extends Controller
                                 $val = Admission::where('admission_no', '=', $addNo)->where('ad_payment_type', '=', 'Admission Fee')->where('discount', '>', 0)->count();
                                 if ($val == 0) {
                                     $paid = $request->input('2ndPart');
-                                    $this->saveAdd($addNo, $paid, $ptype, $pinv, $disc);
+                                    $this->saveAdd($addNo, $paid, $ptype, $pinv, $disc, 2);
                                     $this->saveCashInHand($date, $disc, $paid);
                                     return view('Invoice.admissionInv', ['form' => 'ADMISSION FEE', 'part' => '2nd Installment', 'Curriculum' => $Curriculum, 'invNo' => $pinv, 'date' => $date,
                                         'AdNo' => $addNo, 'name' => $name, 'class' => $class, 'amount' => $amount, 'paid' => $paid, 'totPaid' => $amount, 'bottom' => 'ADMISSION FEE']);
                                 } else {
                                     $disc = 0;
                                     $paid = $request->input('2ndPart');
-                                    $this->saveAdd($addNo, $paid, $ptype, $pinv, $disc);
+                                    $this->saveAdd($addNo, $paid, $ptype, $pinv, $disc, 2);
                                     $this->saveCashInHand($date, $disc, $paid);
                                     return view('Invoice.admissionInv', ['form' => 'ADMISSION FEE', 'part' => '2nd Installment', 'Curriculum' => $Curriculum, 'invNo' => $pinv, 'date' => $date,
                                         'AdNo' => $addNo, 'name' => $name, 'class' => $class, 'amount' => $amount, 'paid' => $paid, 'totPaid' => $amount, 'bottom' => 'ADMISSION FEE']);
@@ -209,7 +209,7 @@ class RevenueController extends Controller
             if ($val == 6) {
                 //new Refund payment
                 $paid = $request->input('amount');
-                $this->saveAdd($addNo, $paid, $ptype, $pinv, $disc);
+                $this->saveAdd($addNo, $paid, $ptype, $pinv, $disc, 2);
                 $this->saveCashInHand($date, $disc, $paid);
                 return view('Invoice.admissionInv', ['form' => 'REFUNDABLE FEE', 'part' => '', 'Curriculum' => $Curriculum, 'invNo' => $pinv, 'date' => $date,
                     'AdNo' => $addNo, 'name' => $name, 'class' => $class, 'amount' => $amount, 'paid' => $paid, 'totPaid' => $paid, 'bottom' => 'REFUNDABLE DEPOSIT']);
@@ -221,7 +221,7 @@ class RevenueController extends Controller
 
     }
 
-    public function saveAdd($addNo, $paid, $ptype, $pinv, $disc)
+    public function saveAdd($addNo, $paid, $ptype, $pinv, $disc, $part)
     {
         try {
             $add = new Admission();
@@ -230,6 +230,7 @@ class RevenueController extends Controller
             $add->ad_payment_type = $ptype;
             $add->ad_payment_invoice = $pinv;
             $add->discount = $disc;
+            $add->part = $part;
             $add->save();
         } catch (QueryException $ex) {
             return redirect('admission&Ref')->with('error_code', 111);
@@ -241,12 +242,11 @@ class RevenueController extends Controller
     public function saveCashInHand($date, $disc, $paid)
     {
 
-        $CashInHand= new CashInHand();
-        $returnCIH=$CashInHand->saveCashInHand($date, $disc, $paid);
+        $CashInHand = new CashInHand();
+        $returnCIH = $CashInHand->saveCashInHand($date, $disc, $paid);
 
-        if ($returnCIH==1){
-        }
-        else{
+        if ($returnCIH == 1) {
+        } else {
             return redirect('admission&Ref')->with('error_code', 111);
         }
 
@@ -359,7 +359,7 @@ class RevenueController extends Controller
 
                     DB::table('stationary_tbl')
                         ->where('st_id', $ino)
-                        ->update(['quantity' => $StockQty -$qty[$i]]);//deduct stationary stock quantity
+                        ->update(['quantity' => $StockQty - $qty[$i]]);//deduct stationary stock quantity
 
                     $total = $total + $tot[$i];
 
@@ -379,10 +379,9 @@ class RevenueController extends Controller
 
     public function getItemNO($itemNo)
     {
-        $item = DB::table('stationary_tbl')->select('st_id','quantity')->where('st_type', 'LIKE', $itemNo)->get();
+        $item = DB::table('stationary_tbl')->select('st_id', 'quantity')->where('st_type', 'LIKE', $itemNo)->get();
         return $item;
     }//get item no according to item name
-
 
 
     /****************************************** Other Income ************************************************************/
