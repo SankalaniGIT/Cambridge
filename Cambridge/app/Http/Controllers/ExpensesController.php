@@ -66,13 +66,12 @@ class ExpensesController extends Controller
             $disc = $total;
             $paid = 0;
 
-            $CashInHand= new CashInHand();
-            $returnCIH=$CashInHand->saveCashInHand($date, $disc, $paid);//add expenses to cash in hand table
+            $CashInHand = new CashInHand();
+            $returnCIH = $CashInHand->saveCashInHand($date, $disc, $paid);//add expenses to cash in hand table
 
-            if ($returnCIH==1) {
+            if ($returnCIH == 1) {
                 return view('Invoice.expensesInv', ['invNo' => $invNo, 'date' => $date, 'Sname' => $Sname, 'Rname' => $Rname, 'type' => $type, 'description' => $description, 'amount' => $amount, 'total' => $total, 'count' => $count]);
-            }
-            else{
+            } else {
                 return redirect('viewPayExpenses')->with('error_code', 111);
             }
 //            app('App\Http\Controllers\RevenueController')->saveCashInHand($date, $disc, $paid);//add expenses to cash in hand table
@@ -94,4 +93,24 @@ JOIN expense_transaction_tbl ON expense_tbl.expense_inv_id=expense_transaction_t
 JOIN expense_master_tbl ON expense_transaction_tbl.expense_m_id=expense_master_tbl.expense_m_id'));
         return view('Activities.Expenses.viewExpenses', array('expenses' => $exp));
     }
+
+
+    /********************************************    View Expenses    ***********************************************/
+
+    public function addExpense()
+    {
+        return view('Activities.Expenses.addExpenses');
+    }//view add new expense
+
+    public function postAddNewExpense(Request $request)
+    {
+        $exp = new Expense();
+        $issend = $exp->addNewExpense($request->input('Nexp'));
+
+        if ($issend)
+            return redirect('addExpense')->with('error_code', 27);
+        else
+            return redirect('addExpense')->with('error_code', 111);
+    }//post add new expense
+
 }

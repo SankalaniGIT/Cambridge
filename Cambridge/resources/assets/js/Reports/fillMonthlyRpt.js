@@ -9,7 +9,7 @@ $(document).ready(function () {
 //$ncMTF,$bcMTF,$ncMEF,$bcMEF,$ncMExtF,$bcMExtF,$AdDis,$stationary,$course,$otherIncome,$expenses
 
                 var grosprofit = (data[0] + data[1] + data[2] + data[3] + data[4] + data[5] + (data[6][0] - data[6][1])
-                + parseInt(data[7] + data[8]) + data[9]).toFixed(2);
+                + data[7] + parseInt(data[8]) + data[9]).toFixed(2);
                 var y = '<tr>' +
                     '<td colspan="4" style="text-decoration: underline;text-decoration-style: double;font-weight: 600">INCOME</td>' +
                     '</tr>' +
@@ -96,7 +96,7 @@ $(document).ready(function () {
                     '<td>Course fee</td>' +
                     '<td></td>' +
                     '<td>' + (parseInt(data[8])).toFixed(2) + '</td>' +
-                    '<td>' + (parseInt(data[7] + data[8])).toFixed(2) + '</td>' +
+                    '<td>' + (data[7] + parseInt(data[8])).toFixed(2) + '</td>' +
                     '</tr>' +
 
                     '<tr>' +
@@ -133,7 +133,8 @@ $(document).ready(function () {
                 var totexp = 0;
                 $.each(data[10], function (index, value) {
                     var x = '<tr>' +
-                        '<td colspan="2">' + value.expense_type + '</td>' +
+                        '<td>' + value.expense_type + '</td>' +
+                        '<td></td>' +
                         '<td>' + (value.Tamt).toFixed(2) + '</td>' +
                         '<td style="font-weight: 600"></td>' +
                         '</tr>';

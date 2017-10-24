@@ -1,29 +1,31 @@
 .head1{
+
     position: fixed; 
     z-index: 50;
-    right: 160px; 
+    right: 185px;
     bottom: 108px; 
-    color: white;
-    text-shadow:2px 5px black;
+    color: #ed9723;
+    text-shadow:2px 3px #bb1e1a, -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    font-size: 40px;
 }
 
 .head2{
     position: fixed;
     z-index: 50; 
-    right: 160px; 
+    right: 185px;
     bottom: 71px;
     color: white;
     font-size: 20px;
-    text-shadow:2px 5px black;
+    text-shadow:2px 2px black,2px 3px #ed9723;
 }
 .head3{
     position: fixed; 
     z-index: 50; 
-    right: 160px; 
+    right: 185px;
     bottom: 40px;
     color: white;
     font-size: 20px;
-    text-shadow:2px 5px black;
+    text-shadow:2px 4px black,2px 3px #ed9723;
 }
 
 .logo{
@@ -31,6 +33,8 @@
     z-index: 50; 
     right: 20px; 
     bottom: 10px;
+    height: 200px;
+    width: 150px;
 }
 
 #dropdown{
@@ -46,9 +50,13 @@
 }
 
 #userid:hover{
-    color: #000000;
+    color: #ed9723;
 }
 
 #logout{
     padding: 2px 56px !important;
+}
+
+#logout li:first-child a{
+    background-color: #ed9723 !important;
 }

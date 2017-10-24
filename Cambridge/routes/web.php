@@ -20,11 +20,11 @@ Route::get('/home', 'HomeController@index')->name('home');//home page
 Auth::routes();
 
 Route::get('/level', function () {
-
     return view('auth.levels');
 });
 
-Route::get('/userRegister','Auth\NewRegisterController@index')->name('userRegister');//view user register form in user level 1
+Route::get('/userRegister','Auth\NewRegisterController@userRegister')->name('userRegister');//view user register form in user level 1
+Route::post('/postRegister','Auth\NewRegisterController@postRegister')->name('postRegister');//post user register form in user level 1
 
 
 /********************************** School Charges  **********************************/
@@ -126,6 +126,11 @@ Route::get('/inv',function (){
 //View Expenses
 Route::get('/viewExpenses','ExpensesController@viewExpenses')->name('viewExpenses');//View and Print pay expenses
 
+
+//Add New Expense
+Route::get('addExpense','ExpensesController@addExpense')->name('addExpense');//view add new expense
+
+Route::post('postAddNewExpense','ExpensesController@postAddNewExpense')->name('postAddNewExpense');//post add new expense
 
 /**********************************  Course Billing  **********************************/
 
@@ -235,3 +240,5 @@ Route::get('fillPayArrearsRpt','ReportController@fillPayArrearsRpt')->name('fill
 Route::get('viewMonthlyRpt','ReportController@viewMonthlyRpt')->name('viewMonthlyRpt');//view Monthly Report
 
 Route::get('getMonthlyRpt','ReportController@getMonthlyRpt')->name('getMonthlyRpt');//fill Monthly Report
+
+Route::get('pnlExcel','ReportController@pnlExcel')->name('pnlExcel');//export Monthly Report to excel

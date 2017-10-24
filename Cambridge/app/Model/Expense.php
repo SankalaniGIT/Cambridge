@@ -50,4 +50,12 @@ GROUP BY ET.expense_m_id'));
 
         return $tbl;
     }//return total monthly expenses (PNL)
+
+    function addNewExpense($exp)
+    {
+        Expense::insert([
+            'expense_type' => $exp
+        ]);
+        return true;
+    }//insert new expense type
 }

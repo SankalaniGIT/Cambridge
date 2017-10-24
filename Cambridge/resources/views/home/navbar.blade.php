@@ -1,7 +1,7 @@
 @if (Auth::check())
-    @if(Auth::user()->level=='User')
+    @if(Auth::user()->userLevel=='User')
         <?php $level=1 ?>
-    @elseif ((Auth::user()->level)=='Admin')
+    @elseif ((Auth::user()->userLevel)=='Admin')
         <?php $level=2 ?>
     @else
         <?php $level=3 ?>
@@ -57,6 +57,7 @@
             <li class="hidden"><a href="#"></a></li>
             <li><a href="{{route('viewPayExpenses')}}">Pay Expenses</a></li>
             <li><a href="{{route('viewExpenses')}}">View Expenses</a></li>
+            <li><a href="{{route('addExpense')}}">Add New Expense</a></li>
         </ul>
     </li>
     <li class="dropdown">
@@ -92,6 +93,6 @@
         </ul>
     </li>
     <li class="lvl">
-        <a href="{{route('userRegister')}}">User Registration</a>
+        <a href="{{ route('userRegister') }}">User Registration</a>
     </li>
 </ul>

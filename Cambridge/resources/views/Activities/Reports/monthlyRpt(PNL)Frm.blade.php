@@ -18,7 +18,7 @@
 
                         <div class="col-md-8">
                             <input id="Fdate" type="date" class="form-control" name="Fdate"
-                                   value="2017-10-01" required>
+                                   value="" required autofocus>
                         </div>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
 
                         <div class="col-md-8">
                             <input id="Tdate" type="date" class="form-control" name="Tdate"
-                                   value="2017-10-31" required>
+                                   value="" required>
                         </div>
                     </div>
                 </div>
@@ -51,17 +51,7 @@
                 <table id="updateCharges" role="grid" class="table  table-bordered table-striped display dataTable"
                        cellspacing="0"
                        width="100%">
-                    {{--<thead>--}}
-                    {{--<tr style="font-weight: 900">--}}
-                    {{--<th>Admission No</th>--}}
-                    {{--<th>Name</th>--}}
-                    {{--<th>Class</th>--}}
-                    {{--<th>Total Paid</th>--}}
-                    {{--<th>Total Fee</th>--}}
-                    {{--<th>Outstanding</th>--}}
-                    {{--<th>Year</th>--}}
-                    {{--</tr>--}}
-                    {{--</thead>--}}
+
                     <tbody id="tblbody">
                     <tr hidden></tr>
                     </tbody>
@@ -69,9 +59,13 @@
 
             </div>
             <div class="row hidden" id="btn">
-                <div class="col-sm-12 form-group">
+                <div class="col-sm-6 form-group">
                     <input type="button" class="form-control print_inv btn btn-primary" onclick="printDiv('printDiv')"
                            value="Print"/></div>
+
+                <div class="col-sm-6 form-group">
+                    <input type="button" class="form-control btn btn-primary" onclick="window.location='{{route('pnlExcel')}}'"
+                           value="Export to Excel"/></div>
 
             </div>
         </div>

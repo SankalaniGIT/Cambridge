@@ -10,6 +10,7 @@ use App\Model\OtherIncome;
 use App\Model\Stationary;
 use App\Model\TermFee;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
 {
@@ -175,6 +176,8 @@ class ReportController extends Controller
 
     public function getMonthlyRpt(Request $request)
     {
+        session()->flash('Fdate', $request->Fdate);
+        session()->flash('Tdate', $request->Tdate);
         $TF = new TermFee();
         $STA = new Stationary();
         $AD = new Admission();
@@ -193,18 +196,101 @@ class ReportController extends Controller
         $AdDis = $AD->getPNLAdDisTot($request->Fdate, $request->Tdate);//get total admission and discount of monthly
 
         //Other Income
-        $stationary=$STA->getPNLstaTot($request->Fdate, $request->Tdate);//get total stationary profit of monthly
+        $stationary = $STA->getPNLstaTot($request->Fdate, $request->Tdate);//get total stationary profit of monthly
 
-        $course=$COS->getPNLcosTot($request->Fdate, $request->Tdate);//get total course profit of monthly
+        $course = $COS->getPNLcosTot($request->Fdate, $request->Tdate);//get total course profit of monthly
 
-        $otherIncome=$OI->getPNLotherTot($request->Fdate, $request->Tdate);//get total other income profit of monthly
+        $otherIncome = $OI->getPNLotherTot($request->Fdate, $request->Tdate);//get total other income profit of monthly
 
         //Expenses
-        $expenses=$exp->getPNLexpTot($request->Fdate, $request->Tdate);//get total expenses of monthly
+        $expenses = $exp->getPNLexpTot($request->Fdate, $request->Tdate);//get total expenses of monthly
 
-
-        return array($ncMTF,$bcMTF,$ncMEF,$bcMEF,$ncMExtF,$bcMExtF,$AdDis,$stationary,$course,$otherIncome,$expenses);
+        $fillarray = array($ncMTF, $bcMTF, $ncMEF, $bcMEF, $ncMExtF, $bcMExtF, $AdDis, $stationary, $course, $otherIncome, $expenses);
+        session()->flash('Pnldata', $fillarray);
+        return $fillarray;
 
     }//return monthly transaction report details (PNL)
+
+    public function pnlExcel()
+    {
+
+        $Fdate = session()->get('Fdate');
+        $Tdate = session()->get('Tdate');
+
+
+        Excel::create('PNL("' . $Fdate . '" to "' . $Tdate . '")', function ($excel) {
+            $excel->sheet('Sheet 1', function ($sheet) {
+                $Fdate = session()->get('Fdate');
+                $Tdate = session()->get('Tdate');
+                $fillarray = session()->get('Pnldata');
+                $cosfee = (int)$fillarray[8];
+                $totAdmission = $fillarray[6][0] - $fillarray[6][1];
+                $totfee = $fillarray[0] + $fillarray[1] + $fillarray[2] + $fillarray[3] + $fillarray[4] + $fillarray[5];
+                $grossProfit = (($fillarray[6][0] - $fillarray[6][1]) + $cosfee + $fillarray[7] + $fillarray[9] + $fillarray[0] + $fillarray[1] + $fillarray[2] + $fillarray[3] + $fillarray[4] + $fillarray[5]);
+
+                $sheet->mergeCells('A1:G3');
+                $ar1 = array(array('Profitability statement for the '.$Fdate.' to '.$Tdate),
+                    array(' '),
+                    array(' '),
+                    array(' '),
+                    array('INCOME'),
+                    array('Admission', ' ', $fillarray[6][0]),
+                    array('Admission Discounts 10%', ' ', $fillarray[6][1]),
+                    array(' ', ' ', '', $totAdmission),
+                    array('Fees-NC', $fillarray[0]),
+                    array('Fees-BC', $fillarray[1], $fillarray[0] + $fillarray[1]),
+                    array('Exam Fees-NC', $fillarray[2]),
+                    array('Exam Fees-BC', $fillarray[3], $fillarray[2] + $fillarray[3]),
+                    array('Extra Fees-NC', $fillarray[4]),
+                    array('Extra Fees-BC', $fillarray[5], $fillarray[4] + $fillarray[5], $totfee),
+                    array(),
+                    array('OTHER INCOME'),
+                    array('Stationary', '', $fillarray[7]),
+                    array('Course fee', '', $cosfee, $fillarray[7] + $fillarray[8]),
+                    array(),
+                    array('OTHER INCOME'),
+                    array('Others', '', $fillarray[9], $fillarray[9]),
+                    array('Gross Profit', '', '', $grossProfit),
+                    array(),
+                    array('EXPENSES'));//all income
+
+                $sheet->fromArray($ar1, null, 'A1', false, false);
+                $Totexp = 0;
+                foreach ($fillarray[10] as $item) {
+                    $Totexp = $Totexp + $item->Tamt;
+                    if ($item == end($fillarray[10])) {
+                        $sheet->appendRow(array(
+                            $item->expense_type, '', $item->Tamt,  $Totexp
+                        ));
+                    } else {
+                        $sheet->appendRow(array(
+                            $item->expense_type, '', $item->Tamt
+                        ));
+                    }
+                }//add all expense
+
+                $sheet->appendRow(array(
+                    'Net Profit', '', '', $grossProfit - $Totexp
+                ));
+
+
+                $sheet->freezeFirstColumn();
+                $sheet->cells('A1:G1', function($cells) {
+                    $cells->setFontColor('#ffffff');
+                    $cells->setBackground('#000000');
+                    $cells->setFont(array(
+                        'family'     => 'Calibri',
+                        'size'       => '16',
+                        'bold'       =>  true
+                    ));
+                    $cells->setValignment('center');
+                    $cells->setAlignment('center');
+                });
+            });
+        })->export('xlsx');
+
+
+    }//create PNL excel sheet (Monthly income and expense)
+
 
 }

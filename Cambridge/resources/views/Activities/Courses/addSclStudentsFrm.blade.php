@@ -43,7 +43,7 @@
                         <hr>
                         <div class="row">
                             <div class=" col-md-8 col-sm-12 col-xs-12">
-                                <div class=" form-group{{ $errors->has('admission_no') ? ' has-error' : '' }}">
+                                <div class=" form-group{{ $errors->has('adNo') ? ' has-error' : '' }}">
                                     <label for="adNos" class="col-md-4 control-label">School Admission No</label>
 
                                     <div class="col-md-8">

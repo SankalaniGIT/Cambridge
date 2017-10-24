@@ -12,6 +12,7 @@ const mix = require('laravel-mix');
  */
 
 
+mix.sass('resources/assets/sass/home/updateLogin.scss', 'public/css/');
 mix.sass('resources/assets/sass/charges/charges.scss', 'public/css/');
 mix.sass('resources/assets/sass/auth/user.scss', 'public/css/');
 mix.sass('resources/assets/sass/forms/forms.scss', 'public/css/');

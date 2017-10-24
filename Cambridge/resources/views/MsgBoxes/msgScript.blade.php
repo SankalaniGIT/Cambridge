@@ -294,3 +294,28 @@
 
     </script>
 @endif
+
+
+{{--Add new Expense--}}
+@if(!empty(Session::get('error_code')) && Session::get('error_code')==27)
+    <script>
+
+        document.getElementById('mHeader').innerHTML = 'Add New Expense';
+        document.getElementById('mtxt').innerHTML = 'New Expense Type inserted Successfully!';
+        click();
+
+    </script>
+@endif
+
+
+
+{{--User Registration--}}
+@if(!empty(Session::get('error_code')) && Session::get('error_code')==28)
+    <script>
+
+        document.getElementById('mHeader').innerHTML = 'User Registration';
+        document.getElementById('mtxt').innerHTML = 'New User Registered Successfully!';
+        click();
+
+    </script>
+@endif
