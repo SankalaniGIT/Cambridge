@@ -1,12 +1,15 @@
-/node_modules
-/public/hot
-/public/storage
-/storage/*.key
-/vendor
-/.idea
-/.vagrant
-Homestead.json
-Homestead.yaml
-npm-debug.log
-yarn-error.log
+### Composer ###
+composer.phar
+/vendor/
+
+
+# Dependency directories
+node_modules/
+
+*.log
+
+
+# dotenv environment variables file
 .env
+
+.idea/
