@@ -133,7 +133,7 @@ class PayFeeController extends Controller
                     $_2T2P = 1;
                     $_2T3P = 1;
                     $paid = $paid + $totTermFee;
-                    $T1 = 1;//pass full paid terms
+                    $T2 = 1;//pass full paid terms
                 } else {
 
                     $countPaid = $TF->getTermCountPaid($request->id, $class[1], $request->yr, 'T2');//get payment count of 2nd term & total paid for term
@@ -162,7 +162,7 @@ class PayFeeController extends Controller
                     $_3T2P = 1;
                     $_3T3P = 1;
                     $paid = $paid + $totTermFee;
-                    $T1 = 1;//pass full paid terms
+                    $T3 = 1;//pass full paid terms
                 } else {
 
                     $countPaid = $TF->getTermCountPaid($request->id, $class[1], $request->yr, 'T3');//get payment count of 3rd term & total paid for term
@@ -172,7 +172,7 @@ class PayFeeController extends Controller
                         $_3T2P = 1;
                         $_3T3P = 1;// full paid for 3rd term
                         $paid = $paid + $countPaid[1];
-                        $T2 = 1;//pass full paid terms
+                        $T3 = 1;//pass full paid terms
                     } else if ($countPaid[0] == 2) {
                         $_3T1P = 1;
                         $_3T2P = 1;// 2nd payment paid for 3rd term
@@ -218,6 +218,7 @@ class PayFeeController extends Controller
 
     public function fillfees(Request $request)
     {
+
         $mainCls = new Charge();
         $TF = new TermFee();
 
@@ -226,11 +227,12 @@ class PayFeeController extends Controller
 
             $fees = $mainCls->getFees($class[2]);//get term_fee,exam_fee,extra_cur_fee
 
+
             if (substr($request->id, 0, 2) == 'nc') {
                 $Tinv = $TF->getTinv('nc_term_tbl', 'NCTF');
                 $Einv = $TF->getEinv('nc_exam_tbl', 'NCEF');
                 $Extinv = $TF->getExtinv('nc_ex_curr_tbl', 'NCEXTF');
-            } else {
+            } else if (substr($request->id, 0, 2) == 'bc') {
                 $Tinv = $TF->getTinv('bc_term_tbl', 'BCTF');
                 $Einv = $TF->getEinv('bc_exam_tbl', 'BCEF');
                 $Extinv = $TF->getExtinv('bc_ex_curr_tbl', 'BCEXTF');
@@ -307,9 +309,9 @@ class PayFeeController extends Controller
                 return redirect('payFees')->with('error_code', 111);
             }//if not saved cash in hand return error message
 
-            $MT=$this->getTerm_Month($request->input('term'), $request->input('P_method'), $curry);//get term and month according to payment
-            $month=$MT[0];
-            $term=$MT[1];
+            $MT = $this->getTerm_Month($request->input('term'), $request->input('P_method'), $curry);//get term and month according to payment
+            $month = $MT[0];
+            $term = $MT[1];
 
             $TFees = array('invNo' => $request->input('TfeeInv'), 'adNo' => $request->input('adNo'), 'name' => $request->input('name'),
                 'cls' => $request->input('class'), 'Ftype' => 'Term Fees', 'term' => $term, 'month' => $month, 'amt' => $request->input('Tfee'), 'date' => $current_date);
@@ -374,6 +376,8 @@ class PayFeeController extends Controller
             }
             $term = $_3T[0] . '-' . $_3T[3];
         }
-        return array($month,$term);
+        return array($month, $term);
     }//get term and month according to payment
+
+
 }

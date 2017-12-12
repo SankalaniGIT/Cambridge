@@ -242,3 +242,12 @@ Route::get('viewMonthlyRpt','ReportController@viewMonthlyRpt')->name('viewMonthl
 Route::get('getMonthlyRpt','ReportController@getMonthlyRpt')->name('getMonthlyRpt');//fill Monthly Report
 
 Route::get('pnlExcel','ReportController@pnlExcel')->name('pnlExcel');//export Monthly Report to excel
+
+
+
+/**********************************  Old school data base transfer to new one  **********************************/
+
+Route::get('oldTFtoNew','oldTFtoNewDbController@oldTFtoNew')->name('oldTFtoNew');//convert term fee old tbl data to new
+Route::get('oldExExFtoNew','oldEXextraToNewDbController@oldExExFtoNew')->name('oldExExFtoNew');//convert term fee old tbl data to new
+
+

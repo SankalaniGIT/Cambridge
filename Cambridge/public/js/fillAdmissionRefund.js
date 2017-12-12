@@ -144,6 +144,15 @@ $(document).ready(function () {
         }
     });
 
+    $('#category').change(function () {
+        $('#name').val('');
+        $('#class').val('');
+        $('#amount').val('');
+        $('#discount').val('');
+        $('#1stPart').val('');
+        $('#2ndPart').val('');
+    });
+
     $('#Payment_Type').change(function () {
         if ($(this).val() === 'Part') {
             $('#partRow').removeClass("hidden");

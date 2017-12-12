@@ -36,4 +36,13 @@ class Charge extends Model
             ->get();
         return array($cls[0]->term_fee,$cls[0]->exam_fee,$cls[0]->extra_cur_fee);
     }
+
+    function getClassCategory($cls){
+        $cCat=DB::table('class_category_tbl')
+            ->select('class_cat_id')
+            ->where('class_category','=',$cls)
+            ->get();
+
+        return $cCat[0]->class_cat_id;
+    }//return class category id
 }

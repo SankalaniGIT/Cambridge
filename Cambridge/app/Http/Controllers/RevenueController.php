@@ -59,6 +59,7 @@ class RevenueController extends Controller
         $class = '';
         $ammount = 0;
         $paid = 0;
+        $discount = 0;
 
         if (substr($request['id'], 0, 2) == 'nc') {
             $adData = DB::table('nc_student_details_tbl')->select('std_fname', 'std_lname')->where('admission_no', '=', $request['id'])->get();
@@ -106,26 +107,29 @@ class RevenueController extends Controller
 
         }
 
-
         if ($request['category'] == 'Admission Fee') {
+
             $searchData = DB::table('admission_tbl')->select('ad_paid_amount')->where('ad_payment_type', '=', 'Admission Fee')->where('admission_no', '=', $request['id'])->get();
             $ammount = $adm_fee;
 
             $count = Admission::where('admission_no', '=', $request['id'])->where('ad_payment_type', '=', 'Admission Fee')->count();
 
-            $dis = DB::table('admission_tbl')->select(DB::raw('SUM(discount) AS discount'))->where('ad_payment_type', '=', 'Admission Fee')->where('admission_no', '=', $request['id'])->get();
+            $dis = DB::table('admission_tbl')->select(DB::raw('IFNULL( SUM(discount),0) AS discount'))->where('ad_payment_type', '=', 'Admission Fee')->where('admission_no', '=', $request['id'])->get();
 
-            $discount=$dis[0]->discount;
+            $discount = $dis[0]->discount;
+
+
         } elseif ($request['category'] == 'Refundable Deposit') {
+
             $searchData = DB::table('admission_tbl')->select('ad_paid_amount')->where('ad_payment_type', '=', 'Refundable Deposit')->where('admission_no', '=', $request['id'])->get();
             $ammount = $ref_deposit;
 
             $count = Admission::where('admission_no', '=', $request['id'])->where('ad_payment_type', '=', 'Refundable Deposit')->count();
 
-            $discount=0;
+            $discount = 0;
         }
 
-            $paid = $searchData[0]->ad_paid_amount;
+        $paid = isset($searchData[0]) ? $searchData[0]->ad_paid_amount : 0;
 
 
         return [$name, $class, $ammount, $discount, $paid, $count];
@@ -144,6 +148,10 @@ class RevenueController extends Controller
         $amount = $request->input('amount');
         $fPart = $request->input('1stPart');
         $secPart = $request->input('2ndPart');
+
+        if ($fPart + $secPart >  $amount) {
+            return redirect('admission&Ref')->with('error_code', 9);
+        }
 
         $val = $this->getAdmissionRefCondition($ptype, $addNo, $request->input('amount'));
 

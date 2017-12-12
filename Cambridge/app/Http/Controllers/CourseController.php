@@ -343,7 +343,7 @@ class CourseController extends Controller
                 $course = $cs->getCourseName($cos);//get course name from Course model
 
                 if ($returnCIH == 1) {
-                    return view('Invoice.CosInv', ['class' => $course, 'AdNo' => $id, 'invNo' => $request->input('CosInv'), 'date' => $date, 'name' => $request->input('name'), 'fee' => $paid, 'month' => $request->input('month')]);
+                    return view('Invoice.CosInv', ['class' => $course, 'AdNo' => $id, 'invNo' => $request->input('CosInv'), 'date' => $date, 'name' => $request->input('name'), 'fee' => $paid, 'month' => $request->input('month'),'term'=>'--']);
                 } else {
                     return redirect('billCourse')->with('error_code', 111);
                 }

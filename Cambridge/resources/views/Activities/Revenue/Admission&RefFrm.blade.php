@@ -60,20 +60,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class=" col-md-4 col-sm-12 col-xs-12" id="partPaymentid">
-                                <div class="form-group">
-                                    <label for="Payment_Type" class="col-md-4 control-label">Payment Type</label>
-
-                                    <div class="col-md-8">
-                                        <select id="Payment_Type" type="text" class="form-control" name="Payment_Type"
-                                                value="{{old('Payment_Type')}}" required
-                                                autofocus>
-                                            <option value="Full" selected>Full Payment</option>
-                                            <option value="Part">Part Payment</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
                             <div class=" col-md-4 col-sm-12 col-xs-12">
                                 <div class="form-group">
                                     <label for="category" class="col-md-4 control-label">Category</label>
@@ -84,6 +70,21 @@
                                                 autofocus>
                                             <option value="Admission Fee" selected>Admission Fee</option>
                                             <option value="Refundable Deposit">Refundable Deposit</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class=" col-md-4 col-sm-12 col-xs-12" id="partPaymentid">
+                                <div class="form-group">
+                                    <label for="Payment_Type" class="col-md-4 control-label">Payment Type</label>
+
+                                    <div class="col-md-8">
+                                        <select id="Payment_Type" type="text" class="form-control" name="Payment_Type"
+                                                value="{{old('Payment_Type')}}" required
+                                                autofocus>
+                                            <option value="Full" selected>Full Payment</option>
+                                            <option value="Part">Part Payment</option>
                                         </select>
                                     </div>
                                 </div>

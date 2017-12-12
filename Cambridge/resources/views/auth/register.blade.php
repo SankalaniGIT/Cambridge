@@ -19,7 +19,8 @@
                             <label for="name" class="col-md-4 control-label">Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{old('name')}}" required autofocus>
+                                <input id="name" type="text" class="form-control" name="name" value="{{old('name')}}"
+                                       required autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -33,7 +34,8 @@
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{old('email')}}" required>
+                                <input id="email" type="email" class="form-control" name="email"
+                                       value="{{old('email')}}" required>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -47,7 +49,9 @@
                             <label for="level" class="col-md-4 control-label">User Level</label>
 
                             <div class="col-md-6">
-                                <select id="level" type="level" class="form-control" name="level" value="{{ old('level') }}" required>
+                                <select id="level" type="level" class="form-control" name="level"
+                                        value="{{ old('level') }}" required>
+                                    <option value="DivAdmin">Developer Admin</option>
                                     <option value="Admin">Admin</option>
                                     <option value="User">User</option>
                                 </select>
@@ -63,7 +67,8 @@
                             <label for="password" class="col-md-4 control-label">Password</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" value="{{old('password')}}" name="password" required>
+                                <input id="password" type="password" class="form-control" value="{{old('password')}}"
+                                       name="password" required>
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -77,7 +82,8 @@
                             <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" value="{{old('password')}}" class="form-control" name="password_confirmation" required>
+                                <input id="password-confirm" type="password" value="{{old('password')}}"
+                                       class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
 

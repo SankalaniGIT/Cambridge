@@ -62,7 +62,7 @@
                         </div>
                         <br  class="err hidden">
                         <div class="row">
-                            <div class="col-md-8 form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            <div class="col-md-10 form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-4 control-label">Student Name</label>
 
                                 <div class="col-md-8">
@@ -77,7 +77,7 @@
                                 </div>
                             </div>
 
-                            <div class=" col-md-4 col-sm-12 col-xs-12">
+                            <div class=" col-md-2 col-sm-12 col-xs-12 hidden">
                                 <div class=" form-group">
                                     <label for="state" class="col-md-6 control-label">Student Availability</label>
 

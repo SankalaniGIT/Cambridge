@@ -14,7 +14,6 @@
             <th>Last name</th>
             <th>Admission Date</th>
             <th>Class Category</th>
-            <th>Cur</th>
             <th>Curriculum category</th>
             <th>Contact Number</th>
             <th>Status</th>
@@ -27,7 +26,6 @@
             <th>Last name</th>
             <th>Admission Date</th>
             <th>Class Category</th>
-            <th>Cur</th>
             <th>Curriculum category</th>
             <th>Contact Number</th>
             <th>Status</th>
@@ -42,7 +40,6 @@
                 <td>{{$stu->std_lname}}</td>
                 <td>{{$stu->date_admission}}</td>
                 <td>{{$stu->class_category}}</td>
-                <td>{{$stu->c_category}}</td>
                 <td>{{$stu->main_class_id}}</td>
                 <td>{{$stu->std_tel_no}}</td>
                 <td>{{$stu->state}}</td>

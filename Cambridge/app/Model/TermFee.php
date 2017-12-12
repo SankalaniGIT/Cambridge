@@ -55,21 +55,21 @@ class TermFee extends Model
     {
         $result = DB::table($tbl)->select('T_inv_no')->orderBy('term_id', 'desc')->limit(1)->get();
         $id = substr($result[0]->T_inv_no, 4);
-        return $ext . ($id + 1);
+        return $ext . ( (int) $id + 1);
     }//return next term fee invoice No
 
     function getEinv($tbl, $ext)
     {
         $result = DB::table($tbl)->select('ex_inv_no')->orderBy('exam_id', 'desc')->limit(1)->get();
         $id = substr($result[0]->ex_inv_no, 4);
-        return $ext . ($id + 1);
+        return $ext . ((int) $id + 1);
     }//return next Exam fee invoice No
 
     function getExtinv($tbl, $ext)
     {
         $result = DB::table($tbl)->select('ex_inv_no')->orderBy('ex_curr_id', 'desc')->limit(1)->get();
         $id = substr($result[0]->ex_inv_no, 6);
-        return $ext . ($id + 1);
+        return $ext . ((int) $id + 1);
     }//return next Extra curricular fee invoice No
 
     function saveTermfee($term, $adNo, $cls, $amt, $date, $Pmethod, $yr)
@@ -222,7 +222,7 @@ WHERE TF.term_invoice_date BETWEEN "' . $Fd . '" AND "' . $Td . '"'));
 
     function viewTFHistory($id)
     {
-        $t = DB::select(DB::raw(' SELECT TF.admmision_no,CONCAT(SD.std_fname,SD.std_lname) AS stname,CT.class_category,TF.term_invoice_date,TC.term_cat,
+        $t = DB::select(DB::raw(' SELECT TF.admmision_no,CONCAT(SD.std_fname," ",SD.std_lname) AS stname,CT.class_category,TF.term_invoice_date,TC.term_cat,
  IF(TF.payment_method=1,"1st Payment",IF(TF.payment_method=2,"2nd Payment",IF(TF.payment_method=3,"3rd Payment",IF(TF.payment_method=4,"Full Payment","other")))) 
  AS payment_method ,TF.amount,TF.year AS yrs
  FROM term_fee_tbl AS TF
@@ -239,7 +239,7 @@ INNER JOIN (SELECT * FROM bc_student_details_tbl  UNION SELECT * FROM nc_student
         $tbl = DB::select(DB::raw('
 SELECT invNo,adNo,name,cls,Ftype,month,amt,date,term,term_fee_id
 FROM(
-SELECT T.T_inv_no AS invNo,TF.admmision_no AS adNo,CONCAT(SD.std_fname,SD.std_lname) AS name,CT.class_category AS cls,"Term Fees" AS Ftype,
+SELECT T.T_inv_no AS invNo,TF.admmision_no AS adNo,CONCAT(SD.std_fname," ",SD.std_lname) AS name,CT.class_category AS cls,"Term Fees" AS Ftype,
  IF(TC.term_id="BC_1",IF(TF.payment_method=1,"SEP",IF(TF.payment_method=2,"OCT",IF(TF.payment_method=3,"NOV and DEC","Full Term"))) ,
  IF(TC.term_id="BC_2",IF(TF.payment_method=1,"MAY",IF(TF.payment_method=2,"JUN",IF(TF.payment_method=3,"JUL and AUG","Full Term"))),
   IF(TC.term_id="BC_3",IF(TF.payment_method=1,"JAN",IF(TF.payment_method=2,"FEB",IF(TF.payment_method=3,"MAR and APR","Full Term"))),
@@ -256,7 +256,7 @@ INNER JOIN term_cat_tbl AS TC ON  TC.term_name=TF.term_name
 INNER JOIN (SELECT * FROM nc_student_details_tbl  UNION SELECT * FROM bc_student_details_tbl) AS SD ON SD.admission_no=TF.admmision_no
  WHERE TC.term_id  LIKE CONCAT( M.c_category,"%")
  UNION
- SELECT T.ex_inv_no AS invNo ,TF.admmision_no AS adNo,CONCAT(SD.std_fname,SD.std_lname) AS name,CT.class_category AS cls,
+ SELECT T.ex_inv_no AS invNo ,TF.admmision_no AS adNo,CONCAT(SD.std_fname," ",SD.std_lname) AS name,CT.class_category AS cls,
 IF(T.ex_inv_no LIKE "NCEF%" OR T.ex_inv_no LIKE "BCEF%" ,"Exam Fees","Extra Curricular Fees") AS Ftype, 
 "Full Term" AS month ,
 IF(T.ex_inv_no LIKE "NCEF%" OR T.ex_inv_no LIKE "BCEF%" ,exam_fee,extra_cur_fee) AS amt,TF.term_invoice_date AS date,TC.term_cat AS term,TF.term_fee_id 
@@ -277,17 +277,19 @@ ORDER BY term_fee_id
         return $tbl;
     }//return term fee invoice details to print
 
-    function getYrlyTFoutstanding($year)
+    function getYrlyTFoutstanding($year, $Term)
     {
-        $tbl = DB::select(DB::raw('SELECT  TF.admmision_no,NAME,CT.class_category,SUM( TF.amount) AS amount,
-(SELECT 3*(term_fee+exam_fee+extra_cur_fee) FROM main_class_tbl WHERE main_class_id=CT.main_class_id)AS totYrfee,TF.year as yrs
+        $tbl = DB::select(DB::raw('SELECT TF.admmision_no,NAME,CT.class_category,SUM( TF.amount) AS amount,
+(SELECT (term_fee+exam_fee+extra_cur_fee) FROM main_class_tbl WHERE main_class_id=CT.main_class_id)AS totTermfee,TF.year AS yrs
 FROM term_fee_tbl AS TF
-INNER JOIN (SELECT CONCAT(std_fname,std_lname) AS NAME,admission_no FROM nc_student_details_tbl 
-	UNION SELECT CONCAT(std_fname,std_lname) AS NAME,admission_no FROM bc_student_details_tbl) AS SD
+INNER JOIN (SELECT CONCAT(std_fname," ",std_lname) AS NAME,admission_no FROM nc_student_details_tbl 
+	UNION SELECT CONCAT(std_fname," ",std_lname) AS NAME,admission_no FROM bc_student_details_tbl) AS SD
 	ON SD.admission_no=TF.admmision_no
 INNER JOIN student_class_tbl AS S ON S.admission_no=TF.admmision_no
-INNER JOIN class_category_tbl AS CT ON CT.class_cat_id=S.class_cat_id
-WHERE TF.year=' . $year . '
+INNER JOIN class_category_tbl AS CT ON CT.class_cat_id=TF.class_cat_id
+INNER JOIN term_cat_tbl AS TC
+ON (TC.`term_name`=TF.`term_name` AND TC.`term_id` LIKE CONCAT(SUBSTR(TF.`admmision_no`,1,2),"%"))
+WHERE TF.year=' . $year . ' AND TC.term_cat="' . $Term . '"
 GROUP BY TF.admmision_no
 ORDER BY TF.class_cat_id'));
 
@@ -309,24 +311,27 @@ WHERE TF.term_invoice_date BETWEEN "' . $Fd . '" AND "' . $Td . '"'));
     function getPNLexamFtot($Fd, $Td, $tbl)
     {
         $tf = DB::select(DB::raw('SELECT IFNULL(SUM(exam_fee),0) AS TotEamt 
-FROM '.$tbl.' AS T
+FROM ' . $tbl . ' AS T
 INNER JOIN term_fee_tbl AS TF ON TF.term_fee_id=T.term_fee_id
 INNER JOIN student_class_tbl AS S ON S.admission_no=TF.admmision_no
 INNER JOIN class_category_tbl AS CT ON CT.class_cat_id=S.class_cat_id
 INNER JOIN main_class_tbl AS M ON M.main_class_id=CT.main_class_id
-WHERE TF.term_invoice_date BETWEEN "'.$Fd.'" AND "'.$Td.'"'));
+WHERE TF.term_invoice_date BETWEEN "' . $Fd . '" AND "' . $Td . '"'));
         return $tf[0]->TotEamt;
     }//return total monthly exam fee(PNL)
 
     function getPNLextraCFtot($Fd, $Td, $tbl)
     {
         $tf = DB::select(DB::raw('SELECT  IFNULL(SUM(extra_cur_fee),0) AS TotExtamt 
-FROM '.$tbl.' AS T
+FROM ' . $tbl . ' AS T
 INNER JOIN term_fee_tbl AS TF ON TF.term_fee_id=T.term_fee_id
 INNER JOIN student_class_tbl AS S ON S.admission_no=TF.admmision_no
 INNER JOIN class_category_tbl AS CT ON CT.class_cat_id=S.class_cat_id
 INNER JOIN main_class_tbl AS M ON M.main_class_id=CT.main_class_id
-WHERE TF.term_invoice_date BETWEEN "'.$Fd.'" AND "'.$Td.'"'));
+WHERE TF.term_invoice_date BETWEEN "' . $Fd . '" AND "' . $Td . '"'));
         return $tf[0]->TotExtamt;
     }//return total monthly extra curricular fee(PNL)
+
+
+
 }

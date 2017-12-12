@@ -59,6 +59,9 @@
   }
 }
 
+body{
+  background: rgba(211, 211, 211, 0.13) !important;
+}
 body {
     position: relative;
     overflow-x: hidden;

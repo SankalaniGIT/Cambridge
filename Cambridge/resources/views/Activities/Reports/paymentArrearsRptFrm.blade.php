@@ -8,17 +8,31 @@
     <h2>Payment Arrear List</h2>
     <div class="panel panel-default dataTables_wrapper dt-jqueryui">
         <div class="panel-heading fg-toolbar ui-toolbar ui-widget-header ui-helper-clearfix ui-corner-tl ui-corner-tr">
-            Arrear List for monthly Payment for A Year
+            Arrear List for Term Payment for A Year
         </div>
         <div class="panel-body">
-            <div class="row" style="width: 50%; margin: auto">
-                <div class=" col-md-7 col-sm-12 col-xs-12 ">
+            <div class="row" style="width: 80%; margin: auto">
+                <div class=" col-md-5 col-sm-12 col-xs-12 ">
                     <div class="form-group{{ $errors->has('year') ? ' has-error' : '' }}">
                         <label for="year" class="col-md-4 control-label">Year</label>
 
                         <div class="col-md-8">
                             <input id="year" type="number" class="form-control" name="year"
-                                   value="" required autofocus>
+                                   value="{{old('year')}}" required autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" col-md-5 col-sm-12 col-xs-12 ">
+                    <div class="form-group{{ $errors->has('term') ? ' has-error' : '' }}">
+                        <label for="term" class="col-md-4 control-label">Term</label>
+
+                        <div class="col-md-8">
+                            <select id="term" type="number" class="form-control" name="term"
+                                   value="{{old('term')}}" required autofocus>
+                                <option value="JAN-APR">JAN-APR</option>
+                                <option value="MAY-AUG">MAY-AUG</option>
+                                <option value="SEP-DEC">SEP-DEC</option>
+                            </select>
                         </div>
                     </div>
                 </div>

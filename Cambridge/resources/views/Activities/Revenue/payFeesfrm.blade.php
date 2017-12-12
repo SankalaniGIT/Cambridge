@@ -35,7 +35,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <br>
                                 <div class="row">
                                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                         <label for="name" class="col-md-4 control-label">Student Name</label>
@@ -52,7 +51,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <br>
                                 <div class="row">
                                     <div class="form-group{{ $errors->has('class') ? ' has-error' : '' }}">
                                         <label for="class" class="col-md-4 control-label">Class</label>
@@ -69,7 +67,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <br>
                                 <div class="row">
                                     <div class="form-group{{ $errors->has('OutStandingAmt') ? ' has-error' : '' }}">
                                         <label for="OutStandingAmt" class="col-md-4 control-label">OutStanding
@@ -88,7 +85,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <br>
                                 <div class="row">
                                     <div class="form-group{{ $errors->has('year') ? ' has-error' : '' }}">
                                         <label for="year" class="col-md-4 control-label">Year</label>
@@ -134,17 +130,20 @@
                                                     </th>
                                                     <td>
                                                         <label for="T1-p1"></label>
-                                                        <input name="T1-p1" type="checkbox" id="T1-p1" value="0" onclick="$(this).val(this.checked ? 1 : 0);" readonly>
+                                                        <input name="T1-p1" type="checkbox" id="T1-p1" value="0"
+                                                               onclick="$(this).val(this.checked ? 1 : 0);" readonly>
                                                         <div class="ck"></div>
                                                     </td>
                                                     <td>
                                                         <label for="T1-p2"></label>
-                                                        <input name="T1-p2" type="checkbox" id="T1-p2" value="0" onclick="$(this).val(this.checked ? 1 : 0);" readonly>
+                                                        <input name="T1-p2" type="checkbox" id="T1-p2" value="0"
+                                                               onclick="$(this).val(this.checked ? 1 : 0);" readonly>
                                                         <div class="ck"></div>
                                                     </td>
                                                     <td>
                                                         <label for="T1-p3"></label>
-                                                        <input name="T1-p3" type="checkbox" id="T1-p3" value="0" onclick="$(this).val(this.checked ? 1 : 0);" readonly>
+                                                        <input name="T1-p3" type="checkbox" id="T1-p3" value="0"
+                                                               onclick="$(this).val(this.checked ? 1 : 0);" readonly>
                                                         <div class="ck"></div>
                                                     </td>
                                                 </tr>
@@ -154,17 +153,20 @@
                                                     </th>
                                                     <td>
                                                         <label for="T2-p1"></label>
-                                                        <input name="T2-p1" type="checkbox" id="T2-p1" value="0" onclick="$(this).val(this.checked ? 1 : 0);" readonly>
+                                                        <input name="T2-p1" type="checkbox" id="T2-p1" value="0"
+                                                               onclick="$(this).val(this.checked ? 1 : 0);" readonly>
                                                         <div class="ck"></div>
                                                     </td>
                                                     <td>
                                                         <label for="T2-p2"></label>
-                                                        <input name="T2-p2" type="checkbox" id="T2-p2" value="0" onclick="$(this).val(this.checked ? 1 : 0);" readonly>
+                                                        <input name="T2-p2" type="checkbox" id="T2-p2" value="0"
+                                                               onclick="$(this).val(this.checked ? 1 : 0);" readonly>
                                                         <div class="ck"></div>
                                                     </td>
                                                     <td>
                                                         <label for="T2-p3"></label>
-                                                        <input name="T2-p3" type="checkbox" id="T2-p3" value="0" onclick="$(this).val(this.checked ? 1 : 0);" readonly>
+                                                        <input name="T2-p3" type="checkbox" id="T2-p3" value="0"
+                                                               onclick="$(this).val(this.checked ? 1 : 0);" readonly>
                                                         <div class="ck"></div>
                                                     </td>
                                                 </tr>
@@ -174,17 +176,20 @@
                                                     </th>
                                                     <td>
                                                         <label for="T3-p1"></label>
-                                                        <input name="T3-p1" type="checkbox" id="T3-p1" value="0" onclick="$(this).val(this.checked ? 1 : 0);" readonly>
+                                                        <input name="T3-p1" type="checkbox" id="T3-p1" value="0"
+                                                               onclick="$(this).val(this.checked ? 1 : 0);" readonly>
                                                         <div class="ck"></div>
                                                     </td>
                                                     <td>
                                                         <label for="T3-p2"></label>
-                                                        <input name="T3-p2" type="checkbox" id="T3-p2" value="0" onclick="$(this).val(this.checked ? 1 : 0);" readonly>
+                                                        <input name="T3-p2" type="checkbox" id="T3-p2" value="0"
+                                                               onclick="$(this).val(this.checked ? 1 : 0);" readonly>
                                                         <div class="ck"></div>
                                                     </td>
                                                     <td>
                                                         <label for="T3-p3"></label>
-                                                        <input name="T3-p3" type="checkbox" id="T3-p3" value="0" onclick="$(this).val(this.checked ? 1 : 0);" readonly>
+                                                        <input name="T3-p3" type="checkbox" id="T3-p3" value="0"
+                                                               onclick="$(this).val(this.checked ? 1 : 0);" readonly>
                                                         <div class="ck"></div>
                                                     </td>
                                                 </tr>
@@ -206,7 +211,7 @@
 
                                         <div class="col-md-8">
                                             <select id="term" type="text" class="form-control" name="term"
-                                                    value="{{ old('term') }}"  autofocus required>
+                                                    value="{{ old('term') }}" autofocus required>
                                                 <option value="">Term</option>
                                             </select>
 
@@ -224,7 +229,7 @@
 
                                         <div class="col-md-8">
                                             <select id="P_method" type="text" class="form-control" name="P_method"
-                                                    value="{{ old('P_method') }}"  autofocus required>
+                                                    value="{{ old('P_method') }}" autofocus required>
                                                 <option value="">Payment Method</option>
                                             </select>
                                         </div>
@@ -300,6 +305,25 @@
                                 </div>
                             </div>
 
+                        </div>
+
+                        <br>
+                        <div class="row">
+                            <div class="form-group{{ $errors->has('totPayment') ? ' has-error' : '' }}">
+                                <label for="totPayment" class="col-md-4 control-label">Total Payment</label>
+
+                                <div class="col-md-4">
+                                    <input id="totPayment" type="text" class="form-control"
+                                           name="totPayment"
+                                           value="{{old('totPayment')}}" autofocus readonly>
+
+                                    @if ($errors->has('totPayment'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('totPayment') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row" style="display: flex;flex-direction: row;justify-content: center;">

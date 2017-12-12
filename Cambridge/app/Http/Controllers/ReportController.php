@@ -147,6 +147,7 @@ class ReportController extends Controller
 
     public function printTermFee()
     {
+        ini_set('max_execution_time', 0);
         $TF = new TermFee();
         $PTFI = $TF->printTFInv();
         return view('Activities.Reports.printTermFeeRpt', array('termFees' => $PTFI));
@@ -162,7 +163,7 @@ class ReportController extends Controller
     public function fillPayArrearsRpt(Request $request)
     {
         $TF = new TermFee();
-        $YTFO = $TF->getYrlyTFoutstanding($request->year);
+        $YTFO = $TF->getYrlyTFoutstanding($request->year,$request->term);
         return $YTFO;
     }//fill yearly payment outstanding
 

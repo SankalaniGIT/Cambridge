@@ -155,6 +155,7 @@ class StudentController extends Controller
 
     public function dbUpdate(studentInsertRequest $request)
     {
+        $CLS = new Charge();
         if (isset($request->state)) {
             $state = 'true';
         } elseif (!isset($request->state)) {
@@ -171,6 +172,12 @@ class StudentController extends Controller
                         'std_m_lname' => $request->mLname, 'date_admission' => $request->date, 'std_m_moblie' => $request->Mother_tell,
                         'std_f_mobile' => $request->Father_tell, 'state' => $state]);
 
+                $classCat = $CLS->getClassCategory($request->input('class'));//get class category id
+
+                DB::table('student_class_tbl')->where('admission_no', '=', $request->adNo)->update([
+                    'class_cat_id' => $classCat
+                ]);//update class category id
+
                 return redirect('studentRegistrationUpdate')->with('error_code', 4); //pass a variable when redirecting to msgScript.blade.php
             } catch
             (QueryException $ex) {
@@ -185,12 +192,20 @@ class StudentController extends Controller
                         'std_f_fname' => $request->Father_First_name, 'std_f_lname' => $request->Father_Last_name, 'std_m_fname' => $request->Mother_First_name,
                         'std_m_lname' => $request->mLname, 'date_admission' => $request->date, 'std_m_moblie' => $request->Mother_tell,
                         'std_f_mobile' => $request->Father_tell, 'state' => $state]);
+
+                $classCat = $CLS->getClassCategory($request->input('class'));//get class category id
+
+                DB::table('student_class_tbl')->where('admission_no', '=', $request->adNo)->update([
+                    'class_cat_id' => $classCat
+                ]);//update class category id
+
                 return redirect('studentRegistrationUpdate')->with('error_code', 5); //pass a variable when redirecting to msgScript.blade.php
             } catch
             (QueryException $ex) {
                 return redirect('studentRegistrationUpdate')->with('error_code', 3);//pass a variable when redirecting to msgScript.blade.php
             }
         }
+
     }
 
     public function adNoAutoComplete(Request $request)
